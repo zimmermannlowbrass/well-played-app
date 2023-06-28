@@ -5,8 +5,10 @@ from config import db
 
 # Models go here!
 
-class User(db.Model):
+class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
+
+    serialize_rules = ('-checkins.user')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
@@ -17,8 +19,10 @@ class User(db.Model):
     def __repr__(self):
         return f'<User: {self.name}>'
 
-class Playground(db.Model):
+class Playground(db.Model, SerializerMixin):
     __tablename__ = 'playgrounds'
+
+    serialize_rules = ('-checkins.playground')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
@@ -31,8 +35,10 @@ class Playground(db.Model):
     def __repr__(self):
         return f'<Playground: {self.name}>'
 
-class CheckIn(db.Model):
+class CheckIn(db.Model, SerializerMixin):
     __tablename__ = 'checkins'
+
+    serialize_rules = ('-user.checkins', '-playground.checkins')
 
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer)
