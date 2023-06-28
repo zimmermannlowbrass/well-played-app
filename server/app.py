@@ -12,72 +12,61 @@ from models import User, Playground, CheckIn
 
 # Views go here!
 
+class Home(Resource):
+
+    def get(self):
+        response_dict = {
+            "message": "Welcome to Well Played!"
+        }
+        reponse = make_response(
+            response_dict,
+            200
+        )
+        return reponse
+api.add_resource(Home, '/home')
+
 @app.route('/')
 def index():
     return "Welcome to the WellPlayed App!"
 
-@app.route('/playgrounds')
-def playgrounds():
-    playgrounds = []
-    for playground in Playground.query.all():
-        pg_dict = {
-            "name": playground.name,
-            "neighborhood": playground.neighborhood,
-            "has_restroom": playground.has_restroom,
-            "has_water_feature": playground.has_water_feature
-        }
-        playgrounds.append(pg_dict)
-    response = make_response(
-        jsonify(playgrounds),
-        200
-    )
-    return response
+class Playgrounds(Resource):
+    def get(self):
+        playgrounds = []
+        for playground in Playground.query.all():
+            pg_dict = {
+                "name": playground.name,
+                "neighborhood": playground.neighborhood,
+                "has_restroom": playground.has_restroom,
+                "has_water_feature": playground.has_water_feature
+            }
+            playgrounds.append(pg_dict)
+        response = make_response(
+            jsonify(playgrounds),
+            200
+        )
+        return response
+api.add_resource(Playgrounds, '/playgrounds')
 
-# For some reason I get an AttributeError of 'Playground' object has no attribute when I use to_dict()
-# 
-# @app.route('/playgrounds/<int:id>')
-# def playground_by_id(id):
-#     playground = Playground.query.filter(Playground.id == id).first()
-#     response = make_response(jsonify(playground.to_dict()), 200)
-#     response.headers['Content-Type'] = 'application/json'
-#     return response
-
-
-@app.route('/users')
-def users():
-    users = []
-    for user in User.query.all():
-        user_dict = {
-            "name": user.name,
-            "rank": user.rank
-        }
-        users.append(user_dict)
-    response = make_response(
-        jsonify(users),
-        200
-    )
-    return response
-    
-@app.route('/users/<int:id>', methods=['GET', 'POST', 'PATCH', 'DELETE'])
-def user_by_id(id):
-    user = User.query.filter(User.id == id).first()
-
-    if request.method == 'GET':    
-        user_dict = {
+class Users(Resource):
+    def get(self):
+        users = []
+        for user in User.query.all():
+            user_dict = {
                 "name": user.name,
                 "rank": user.rank
             }
+            users.append(user_dict)
         response = make_response(
-            jsonify(user_dict),
+            jsonify(users),
             200
         )
         return response
     
-    elif request.method == 'POST':
+    def post(self):
         new_user = User(
-            name=request.form.get("name"),
-            rank=request.form.get("rank")
-        )
+                name=request.form.get("name"),
+                rank=request.form.get("rank")
+            )
         db.session.add(new_user)
         db.session.commit()
         user_dict = {
@@ -89,8 +78,43 @@ def user_by_id(id):
             201
         )
         return response
+
+api.add_resource(Users, '/users')
     
-    elif request.method == 'DELETE':
+class UserByID(Resource):
+    def get(self, id):
+        user = User.query.filter(User.id == id).first()
+
+        user_dict = {
+                "name": user.name,
+                "rank": user.rank
+            }
+        response = make_response(
+            jsonify(user_dict),
+            200
+        )
+        return response
+        
+       
+        
+    def patch(self, id):
+        user = User.query.filter(User.id == id).first()
+        for attr in request.form:
+            setattr(user, attr, request.form.get(attr))
+        db.session.add(user)
+        db.session.commit()
+        user_dict = {
+                "name": user.name,
+                "rank": user.rank
+            }
+        response = make_response(
+            jsonify(user_dict),
+            200
+        )
+        return response
+
+    def delete(self, id):
+        user = User.query.filter(User.id == id).first()
         db.session.delete(user)
         db.session.commit()
 
@@ -103,10 +127,20 @@ def user_by_id(id):
             response_body,
             200
         )
-
         return response
-
+        
+api.add_resource(UserByID, '/users/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
 
+ 
+
+# For some reason I get an AttributeError of 'Playground' object has no attribute when I use to_dict()
+# 
+# @app.route('/playgrounds/<int:id>')
+# def playground_by_id(id):
+#     playground = Playground.query.filter(Playground.id == id).first()
+#     response = make_response(jsonify(playground.to_dict()), 200)
+#     response.headers['Content-Type'] = 'application/json'
+#     return response
