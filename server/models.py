@@ -22,6 +22,9 @@ class Playground(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    neighborhood = db.Column(db.String)
+    has_restroom = db.Column(db.Boolean)
+    has_water_feature = db.Column(db.Boolean)
 
     checkins = db.relationship('CheckIn', backref='playground')
 
