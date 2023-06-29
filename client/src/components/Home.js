@@ -5,7 +5,6 @@ import { useFormik } from "formik";
 function Home() {
 
     const [users, setUsers] = useState([]);
-    const [refreshPage, setRefreshPage] = useState(false);
   // Pass the useFormik() hook initial form values and a submit function that will
   // be called when the form is submitted
 
@@ -16,30 +15,33 @@ function Home() {
       .then((data) => {
         setUsers(data);
       });
-  }, [refreshPage]);
+  }, []);
 
   console.log(users)
+
+  const formSchema = yup.object().shape({
+    name: yup.string().required("Must enter a name").typeError("Please make sure you are only using letters!").max(100),
+    rank: yup.number().positive().integer().typeError("Please enter a").max(10)
+  });
 
 
   const formik = useFormik({
     initialValues: {
       name: "",
-      rank: "",
+      rank: ""
     },
-    validationSchema: null,
+    validationSchema: formSchema,
     onSubmit: (values) => {
+        console.log(values)
       fetch("users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values, null, 2),
-      }).then((res) => {
-        
-        if (res.status == 201) {
-          setRefreshPage(!refreshPage);
-        }
-      });
+        body: JSON.stringify(values)
+      })
+      .then(r => r.json())
+      .then(data => console.log(data))
     },
   });
 
@@ -64,33 +66,29 @@ function Home() {
             id="rank"
             name="rank"
             onChange={formik.handleChange}
-            value={formik.values.age}
+            value={formik.values.rank}
             />
-            <p style={{ color: "red" }}> {formik.errors.age}</p>
+            <p style={{ color: "red" }}> {formik.errors.rank}</p>
             <button type="submit">Submit</button>
         </form>
-      {/* <table style={{ padding: "15px" }}>
+      <table style={{ padding: "15px" }}>
         <tbody>
           <tr>
             <th>name</th>
-            <th>email</th>
-            <th>age</th>
+            <th>rank</th>
           </tr>
-          {customers === "undefined" ? (
+          {users === "undefined" ? (
             <p>Loading</p>
           ) : (
-            customers.map((customer, i) => (
-              <>
-                <tr key={i}>
-                  <td>{customer.name}</td>
-                  <td>{customer.email}</td>
-                  <td>{customer.age}</td>
+            users.map((user) => (
+                <tr key={users.indexOf(user)}>
+                  <td>{user.name}</td>
+                  <td>{user.rank}</td>
                 </tr>
-              </>
             ))
           )}
         </tbody>
-      </table> */}
+      </table>
     </div>
   );
 

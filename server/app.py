@@ -63,9 +63,10 @@ class Users(Resource):
         return response
     
     def post(self):
+        data = request.get_json()
         new_user = User(
-                name=request.form.get("name"),
-                rank=request.form.get("rank")
+                name=data.get("name"),
+                rank=data.get("rank")
             )
         db.session.add(new_user)
         db.session.commit()
