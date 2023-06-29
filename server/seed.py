@@ -23,7 +23,13 @@ if __name__ == '__main__':
 
         users = []
         for n in range(20):
-            user = User(name=fake.name(), rank=randint(1,10))
+            user = User(
+                name=fake.name(),
+                age=fake.random_int(min=18, max=50),
+                email=fake.email(),
+                password=(fake.user_name() + str(fake.random_int(min=10, max=99))),
+                rank=randint(1,10),
+            )
             users.append(user)
 
         hippo = ['Hippo Playground', 'Upper West Side', True, True]

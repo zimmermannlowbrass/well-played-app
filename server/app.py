@@ -53,6 +53,9 @@ class Users(Resource):
         for user in User.query.all():
             user_dict = {
                 "name": user.name,
+                "age": user.age,
+                "email": user.email,
+                "password": user.password,
                 "rank": user.rank
             }
             users.append(user_dict)
@@ -66,12 +69,18 @@ class Users(Resource):
         data = request.get_json()
         new_user = User(
                 name=data.get("name"),
+                age=data.get("age"),
+                email=data.get("email"),
+                password=data.get("password"),
                 rank=data.get("rank")
             )
         db.session.add(new_user)
         db.session.commit()
         user_dict = {
                 "name": new_user.name,
+                "age": new_user.age,
+                "email": new_user.email,
+                "password": new_user.password,
                 "rank": new_user.rank
             }
         response = make_response(

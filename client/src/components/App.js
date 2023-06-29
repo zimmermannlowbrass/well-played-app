@@ -1,5 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import SignUp from "./SignUp";
+import SignIn from "./SignIn";
 import Home from "./Home";
 
 function App() {
@@ -17,7 +19,13 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path='/'>
-          <Home />
+            <Home />
+        </Route>
+        <Route exact path='/signup'>
+          <SignUp />
+        </Route>
+        <Route exact path='/signin'>
+          <SignIn />
         </Route>
       </Switch>
     </div>
