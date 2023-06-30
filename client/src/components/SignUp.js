@@ -1,28 +1,13 @@
-import React, { useEffect, useState} from "react";
+import React from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 
 function SignUp() {
 
-    const [users, setUsers] = useState([]);
-  // Pass the useFormik() hook initial form values and a submit function that will
-  // be called when the form is submitted
-    useEffect(() => {
-    console.log("FETCH! ");
-    fetch("/users")
-      .then((res) => res.json())
-      .then((data) => {
-        setUsers(data);
-      });
-  }, []);
-
-  
   const formSchema = yup.object().shape({
     name: yup.string().required("Must enter a name").typeError("Please make sure you are only using letters!").max(100),
     age: yup.number().positive().integer().typeError("Please enter a number").max(99),
-    
   });
-
 
   const formik = useFormik({
     initialValues: {
@@ -93,7 +78,7 @@ function SignUp() {
 
             <button type="submit">Submit</button>
         </form>
-      <table style={{ padding: "15px" }}>
+      {/* <table style={{ padding: "15px" }}>
         <tbody>
           <tr>
             <th>name</th>
@@ -110,7 +95,7 @@ function SignUp() {
             ))
           )}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 
