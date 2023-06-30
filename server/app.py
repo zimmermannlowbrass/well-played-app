@@ -13,7 +13,6 @@ from models import User, Playground, CheckIn
 # Views go here!
 
 class Home(Resource):
-
     def get(self):
         response_dict = {
             "message": "Welcome to Well Played!"
@@ -23,17 +22,15 @@ class Home(Resource):
             200
         )
         return reponse
-api.add_resource(Home, '/home')
+api.add_resource(Home, '/')
 
-@app.route('/')
-def index():
-    return "Welcome to the WellPlayed App!"
 
 class Playgrounds(Resource):
     def get(self):
         playgrounds = []
         for playground in Playground.query.all():
             pg_dict = {
+                "id": playground.id,
                 "name": playground.name,
                 "neighborhood": playground.neighborhood,
                 "has_restroom": playground.has_restroom,
@@ -52,6 +49,7 @@ class Users(Resource):
         users = []
         for user in User.query.all():
             user_dict = {
+                "id": user.id,
                 "name": user.name,
                 "age": user.age,
                 "email": user.email,
@@ -88,15 +86,36 @@ class Users(Resource):
             201
         )
         return response
-
 api.add_resource(Users, '/users')
-    
+
+class CheckIns(Resource):
+    def get(self):
+        checkins = []
+        for checkin in CheckIn.query.all():
+            checkin_dict = {
+                "rating": checkin.rating,
+                "user_id": checkin.user.id,
+                "playground_id": checkin.playground.id,
+                "comment": checkin.comment
+            }
+            checkins.append(checkin_dict)
+        response = make_response(
+            jsonify(checkins),
+            200
+        )
+        return response    
+api.add_resource(CheckIns, '/checkins')
+
 class UserByID(Resource):
     def get(self, id):
         user = User.query.filter(User.id == id).first()
 
         user_dict = {
+                "id": user.id,
                 "name": user.name,
+                "age": user.age,
+                "email": user.email,
+                "password": user.password,
                 "rank": user.rank
             }
         response = make_response(
@@ -105,8 +124,6 @@ class UserByID(Resource):
         )
         return response
         
-       
-        
     def patch(self, id):
         user = User.query.filter(User.id == id).first()
         for attr in request.form:
@@ -114,7 +131,11 @@ class UserByID(Resource):
         db.session.add(user)
         db.session.commit()
         user_dict = {
+                "id": user.id,
                 "name": user.name,
+                "age": user.age,
+                "email": user.email,
+                "password": user.password,
                 "rank": user.rank
             }
         response = make_response(
@@ -138,8 +159,9 @@ class UserByID(Resource):
             200
         )
         return response
-        
 api.add_resource(UserByID, '/users/<int:id>')
+
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

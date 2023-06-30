@@ -27,7 +27,7 @@ if __name__ == '__main__':
                 name=fake.name(),
                 age=fake.random_int(min=18, max=50),
                 email=fake.email(),
-                password=(fake.user_name() + str(fake.random_int(min=10, max=99))),
+                password=(fake.user_name().title() + str(fake.random_int(min=1000, max=9999))),
                 rank=randint(1,10),
             )
             users.append(user)
@@ -52,8 +52,13 @@ if __name__ == '__main__':
             playgrounds.append(playground)
 
         checkins = []
-        for n in range(100):
-            checkin=CheckIn(rating=randint(1,5), user_id=randint(1,len(users)), playground_id=randint(1,len(example_playgrounds)))
+        for n in range(50):
+            checkin=CheckIn(
+                rating=randint(1,5), 
+                user=rc(users), 
+                playground=rc(playgrounds),
+                comment=fake.text(max_nb_chars=200)
+            )
             checkins.append(checkin)
 
         

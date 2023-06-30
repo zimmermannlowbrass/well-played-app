@@ -45,6 +45,7 @@ class CheckIn(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer)
+    comment = db.Column(db.Integer)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     playground_id = db.Column(db.Integer, db.ForeignKey('playgrounds.id'))
