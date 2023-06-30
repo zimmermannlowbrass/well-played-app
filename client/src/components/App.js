@@ -2,24 +2,23 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import SignUp from "./SignUp";
-import Login from "./Login";
 import Home from "./Home";
-import Dashboard from "./dashboard/dashboard";
+import Dashboard from "./dashboard/Dashboard";
 
 function App() {
   
-  const [users, setUsers] = useState([]);
-  const [user, setUser] = useState([])
+  const [users, setUsers] = useState([])
+  const [user, setUser] = useState()
   // Pass the useFormik() hook initial form values and a submit function that will
   // be called when the form is submitted
-    useEffect(() => {
-    console.log("FETCH! ");
+  useEffect(() => {
+    console.log("FETCH! ")
     fetch("/users")
       .then((res) => res.json())
       .then((data) => {
-        setUsers(data);
-      });
-  }, []);
+        setUsers(data)
+      })
+    }, [])
 
   function handleLogin(user) {
     setUser(user)
@@ -29,19 +28,15 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path='/'>
-            <Home />
+            <Home 
+            users = {users}
+            onLogin = {handleLogin}/>
         </Route>
         <Route exact path='/signup'>
           <SignUp 
           />
         </Route>
-        <Route exact path='/login'>
-          <Login 
-          users = {users}
-          onLogin = {handleLogin}
-          />
-        </Route>
-        <Route exact path='/dashboard'>
+        <Route path='/dashboard'>
           <Dashboard
           user = {user}
           />

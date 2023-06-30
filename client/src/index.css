@@ -1,0 +1,145 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: rgb(192, 179, 248);
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  
+  .App {
+    text-align: center;
+  }
+  
+  header {
+    font-family: cursive;
+    font-size: 45pt;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(38, 23, 6, 0.769);
+    color: rgba(245, 245, 245, 0.664);
+    box-shadow: 10px 10px 5px black;
+  }
+  
+  .textBox {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(38, 23, 6, 0.769);
+    color: rgba(245, 245, 245, 0.664);
+    box-shadow: 10px 10px 5px black;
+  }
+  
+  #bannerDinerImage {
+    box-shadow: 10px 10px 5px black;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;    
+    height: 75%;
+  }
+  
+  .subSectionTitle {
+    font-size: 60px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(38, 23, 6, 0.769);
+    color: rgba(245, 245, 245, 0.664);
+    box-shadow: 10px 10px 5px black;
+  }
+  
+  .cardContainer {
+    display: inline-block;
+    background-color: rgb(245, 223, 190);
+    width: 600px;
+    border-radius: 4px;
+    margin: 10px;
+    box-shadow:
+      rgba(0, 0, 0, 0.024) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.05) 0px 1px 0px 0px,
+      rgba(0, 0, 0, 0.03) 0px 0px 8px 0px,
+      rgba(0, 0, 0, 0.1) 0px 20px 30px 0px;
+  }
+  
+  .itemImage {
+    width: 500px;
+    height: fit-content;
+  }
+  
+  
+  .starbarBox {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    background-color: rgba(38, 23, 6, 0.769);
+    color: rgba(245, 245, 245, 0.664);
+    box-shadow: 10px 10px 5px black;
+  }
+  
+  .checkOutContainer {
+    display: inline-block;
+    color: azure;
+    background-color: rgb(61, 47, 27);
+    width: 200px;
+    border-radius: 4px;
+    margin: 10px;
+    box-shadow:
+      rgba(0, 0, 0, 0.024) 0px 0px 0px 1px,
+      rgba(0, 0, 0, 0.05) 0px 1px 0px 0px,
+      rgba(0, 0, 0, 0.03) 0px 0px 8px 0px,
+      rgba(0, 0, 0, 0.1) 0px 20px 30px 0px;
+  }
+  
+  .checkOutImage {
+    height: fit-content;
+    width: 120px;
+    margin-bottom: 20px;
+  }
+  
+  
+  #link {
+    font-family: cursive;
+    font-size: 20pt;
+  }
+  
+  .dinerPhotos {
+    width: 350pt;
+    height: 200pt;
+    display: inline-block;
+    border-radius: 4px;
+    margin: 10px;
+    box-shadow: 10px 5px 5px black;
+  }
+  
+  .aboutInfo {
+    width: 800px;
+    display: inline-block;
+    border-radius: 4px;
+    margin: 10px;
+    box-shadow: 10px 5px 5px black;
+    font-weight: 700;
+    font-size: 12pt;
+    background-color: rgb(189, 155, 115);
+  }
+  
+  .aboutImage {
+    margin: 10px;
+    height: 350px;
+    width: 500px;
+    box-shadow: 10px 5px 5px black;
+  }
+  
+  
+  button {
+    background-color:  rgb(189, 155, 115);
+    color: azure;
+    border-radius: 12px;
+    font-weight: 700;
+  }

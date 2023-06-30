@@ -1,8 +1,12 @@
 import React from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
+import { useHistory } from "react-router-dom";
+
 
 function SignUp() {
+
+  const history = useHistory()
 
   const formSchema = yup.object().shape({
     name: yup.string().required("Must enter a name").typeError("Please make sure you are only using letters!").max(100),
@@ -19,7 +23,7 @@ function SignUp() {
     },
     validationSchema: formSchema,
     onSubmit: (values) => {
-        console.log(values)
+      console.log(values)
       fetch("users", {
         method: "POST",
         headers: {
@@ -29,6 +33,7 @@ function SignUp() {
       })
       .then(r => r.json())
       .then(data => console.log(data))
+      history.push('/')
     },
   });
 
