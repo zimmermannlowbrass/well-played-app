@@ -7,8 +7,7 @@ function SignUp() {
     const [users, setUsers] = useState([]);
   // Pass the useFormik() hook initial form values and a submit function that will
   // be called when the form is submitted
-
-  useEffect(() => {
+    useEffect(() => {
     console.log("FETCH! ");
     fetch("/users")
       .then((res) => res.json())
@@ -17,8 +16,7 @@ function SignUp() {
       });
   }, []);
 
-  console.log(users)
-
+  
   const formSchema = yup.object().shape({
     name: yup.string().required("Must enter a name").typeError("Please make sure you are only using letters!").max(100),
     age: yup.number().positive().integer().typeError("Please enter a number").max(99),
