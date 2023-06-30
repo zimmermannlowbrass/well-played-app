@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
+import { useHistory } from "react-router-dom";
 
 
-function SignIn({ users }){
+function Login({ users, onLogin }){
 
-    const [user, setUser] = useState([])
     const [showPasword, setShowPassword] = useState(false)
+    const history = useHistory()
 
     const formik = useFormik({
         initialValues: {
@@ -13,11 +14,12 @@ function SignIn({ users }){
           password:""
         },
         onSubmit: (values) => {
-            for (const possible_user of users) {
-                if (possible_user.email === values.email) {
-                    if (possible_user.password === values.password) {
+            for (const user of users) {
+                if (user.email === values.email) {
+                    if (user.password === values.password) {
                         console.log('Welcome back!')
-                        setUser(possible_user)
+                        onLogin(user)
+                        history.push('/dashboard')
                     } else {
                         console.log('Wrong password')
                     }
@@ -58,4 +60,4 @@ function SignIn({ users }){
     )
 }
 
-export default SignIn;
+export default Login;

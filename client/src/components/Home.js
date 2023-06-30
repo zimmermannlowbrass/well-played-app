@@ -10,7 +10,7 @@ function Home(){
             <h3>Manhattan's premire playground social network</h3>
             <br/>
             <br/>
-            <NavLink to="/signin"><button>Sign-In</button></NavLink>
+            <NavLink to="/login"><button>Login</button></NavLink>
             <NavLink to="/signup"><button>Register New User</button></NavLink>
         </div>
     )

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import SignUp from "./SignUp";
-import SignIn from "./SignIn";
+import Login from "./Login";
 import Home from "./Home";
+import Dashboard from "./dashboard/dashboard";
 
 function App() {
   
   const [users, setUsers] = useState([]);
+  const [user, setUser] = useState([])
   // Pass the useFormik() hook initial form values and a submit function that will
   // be called when the form is submitted
     useEffect(() => {
@@ -19,6 +21,10 @@ function App() {
       });
   }, []);
 
+  function handleLogin(user) {
+    setUser(user)
+  }
+
   return (
     <div className="App">
       <Switch>
@@ -29,9 +35,15 @@ function App() {
           <SignUp 
           />
         </Route>
-        <Route exact path='/signin'>
-          <SignIn 
+        <Route exact path='/login'>
+          <Login 
           users = {users}
+          onLogin = {handleLogin}
+          />
+        </Route>
+        <Route exact path='/dashboard'>
+          <Dashboard
+          user = {user}
           />
         </Route>
       </Switch>
