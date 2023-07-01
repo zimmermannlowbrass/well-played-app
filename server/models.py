@@ -29,6 +29,7 @@ class Playground(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    image = db.Column(db.String)
     neighborhood = db.Column(db.String)
     has_restroom = db.Column(db.Boolean)
     has_water_feature = db.Column(db.Boolean)

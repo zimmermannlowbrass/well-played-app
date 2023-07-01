@@ -31,6 +31,7 @@ class Playgrounds(Resource):
         for playground in Playground.query.all():
             pg_dict = {
                 "id": playground.id,
+                "image": playground.image,
                 "name": playground.name,
                 "neighborhood": playground.neighborhood,
                 "has_restroom": playground.has_restroom,
