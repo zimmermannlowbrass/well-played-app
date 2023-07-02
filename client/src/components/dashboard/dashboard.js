@@ -6,6 +6,7 @@ import CheckIn from "./CheckIn";
 import History from "./History";
 import Profile from "./Profile";
 import Suggestion from "./Suggestion";
+import NewPlayground from "./NewPlayground";
 
 
 function Dashboard({ user }) {
@@ -26,20 +27,27 @@ function Dashboard({ user }) {
         const user_checkins = checkins.filter(checkin => checkin.user_id === user.id)
         const visited_playground_ids = user_checkins.map(checkin => checkin.playground_id)
         const visited_playgrounds = playgrounds.filter(playground => visited_playground_ids.includes(playground.id))
-        console.log(visited_playgrounds)
+        
+        function handleAddCheckIn(checkin) {
+            setCheckins([...checkins, checkin])
+        }
+        
         return (
             <div>
-                <h1>Welcome back {user.name}!</h1>
+                <h1 className="textBox">Welcome back {user.name}!</h1>
                 <NavBar />
                 <Switch>
                     <Route path="/dashboard/profile">
-                        <Profile />
+                        <Profile user={user}/>
                     </Route>
                     <Route path="/dashboard/history">
-                        <History />
+                        <History user_checkins={user_checkins} visited_playgrounds={visited_playgrounds}/>
                     </Route>
                     <Route path="/dashboard/checkin">
-                        <CheckIn />
+                        <CheckIn user={user} playgrounds={playgrounds} onCheckIn={handleAddCheckIn}/>
+                    </Route>
+                    <Route path="/dashboard/addnewplayground">
+                        <NewPlayground />
                     </Route>
                     <Route path="/dashboard/suggestion">
                         <Suggestion />

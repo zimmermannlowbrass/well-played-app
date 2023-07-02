@@ -24,16 +24,24 @@ function App() {
     setUser(user)
   }
 
+  function handleSignUp(newUser) {
+    setUsers([...users, newUser])
+  }
+
+  console.log(users)
+
   return (
     <div className="App">
       <Switch>
         <Route exact path='/'>
-            <Home 
-            users = {users}
-            onLogin = {handleLogin}/>
+          <Home 
+          users = {users}
+          onLogin = {handleLogin}
+          />
         </Route>
         <Route exact path='/signup'>
           <SignUp 
+          onSignUp= {handleSignUp}
           />
         </Route>
         <Route path='/dashboard'>

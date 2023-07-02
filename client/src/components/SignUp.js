@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
 
 
-function SignUp() {
+function SignUp({ onSignUp }) {
 
   const history = useHistory()
 
@@ -32,7 +32,7 @@ function SignUp() {
         body: JSON.stringify(values)
       })
       .then(r => r.json())
-      .then(data => console.log(data))
+      .then(data => onSignUp(data))
       history.push('/')
     },
   });
