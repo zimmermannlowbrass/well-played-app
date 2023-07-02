@@ -94,6 +94,7 @@ class CheckIns(Resource):
         checkins = []
         for checkin in CheckIn.query.all():
             checkin_dict = {
+                "id": checkin.id,
                 "rating": checkin.rating,
                 "user_id": checkin.user.id,
                 "playground_id": checkin.playground.id,
@@ -105,6 +106,29 @@ class CheckIns(Resource):
             200
         )
         return response    
+    
+    def post(self):
+        data = request.get_json()
+        new_checkin = CheckIn(
+                rating=data.get("rating"),
+                comment=data.get("comment"),
+                playground_id=data.get("playground_id"),
+                user_id=data.get("user_id")
+            )
+        db.session.add(new_checkin)
+        db.session.commit()
+        user_dict = {
+                "rating": new_checkin.rating,
+                "comment": new_checkin.comment,
+                "playground_id": new_checkin.playground_id,
+                "user_id": new_checkin.user_id
+            }
+        response = make_response(
+            jsonify(user_dict),
+            201
+        )
+        return response
+    
 api.add_resource(CheckIns, '/checkins')
 
 class UserByID(Resource):
