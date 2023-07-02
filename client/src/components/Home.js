@@ -15,31 +15,31 @@ function Home({ users, onLogin }){
           password:""
         },
         onSubmit: (values) => {
-            for (const user of users) {
-                if (user.email === values.email) {
-                    if (user.password === values.password) {
-                        console.log('Welcome back!')
-                        onLogin(user)
-                        history.push('/dashboard')
-                    } else {
-                        console.log('Wrong password')
-                    }
-                }
-            }
-            // console.log(values)
-            // fetch("logins", {
-            //     method: "POST",
-            //     headers: {
-            //       "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify(values),
-            //   })
-            //     .then((r) => r.json())
-            //     .then(user => {
-            //         console.log(user)
-            //         // onLogin(user)
-            //         // history.push('/dashboard')
-            //     });
+            // for (const user of users) {
+            //     if (user.email === values.email) {
+            //         if (user.password === values.password) {
+            //             console.log('Welcome back!')
+            //             onLogin(user)
+            //             history.push('/dashboard')
+            //         } else {
+            //             console.log('Wrong password')
+            //         }
+            //     }
+            // }
+            console.log(values)
+            fetch("/logins", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values),
+              })
+                .then((r) => r.json())
+                .then(user => {
+                    console.log(user)
+                    // onLogin(user)
+                    // history.push('/dashboard')
+                });
         },
       });
     

@@ -160,6 +160,7 @@ class Users(Resource):
             201
         )
         return response
+    
 api.add_resource(Users, '/users')
 
 class CheckIns(Resource):

@@ -1,5 +1,4 @@
 import React from "react";
-import * as yup from "yup";
 import { useFormik } from "formik";
 
 function NewPlayground() {
@@ -9,16 +8,16 @@ function NewPlayground() {
         name: '',
         image: '',
         neighborhood: '',
-        has_restroom: '',
-        has_water_feature: ''
+        has_restroom: false,
+        has_water_feature: false
     },
-    validationSchema: null,
     onSubmit: (values) => {
         console.log(values)
-        fetch("playgrounds", {
+        fetch("/playgrounds", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Accept": "application/json",
           },
           body: JSON.stringify(values)
         })
@@ -56,7 +55,7 @@ function NewPlayground() {
                 value={formik.values.neighborhood}
                 />
                 <br />
-                <input
+                {/* <input
                 type="text"
                 name="has_restroom"
                 placeholder="Has a restroom?"
@@ -70,7 +69,7 @@ function NewPlayground() {
                 placeholder="Has a water feature?"
                 onChange={formik.handleChange}
                 value={formik.values.has_water_feature}
-                />
+                /> */}
                 <br />
                 <button type="submit">Submit</button>
             </form>
