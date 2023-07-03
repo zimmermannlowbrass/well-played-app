@@ -32,7 +32,9 @@ function Dashboard({ user }) {
         const visited_playgrounds = playgrounds.filter(playground => visited_playground_ids.includes(playground.id))
         
         function handleAddCheckIn(checkin) {
-            setCheckins([...checkins, checkin])
+            fetch("/checkins")
+                .then(r => r.json())
+                .then(setCheckins)
         }
         function handleAddPlayground(playground) {
             setPlaygrounds([...playgrounds, playground])
@@ -47,7 +49,6 @@ function Dashboard({ user }) {
                 setCheckins(filtererd_checkins)
             })
         }
-        console.log(checkins)
         return (
             <div>
                 <h1 className="textBox">Welcome back {user.name}!</h1>

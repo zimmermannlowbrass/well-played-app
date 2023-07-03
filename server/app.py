@@ -12,6 +12,23 @@ from models import User, Playground, CheckIn
 
 # Views go here!
 
+# @app.route('/sessions/<int:ID>', methods=['GET'])
+# def show_session(ID):
+
+#     response = make_response(jsonify({
+#         # 'session': {
+#         #     'session_key': ID,
+#         #     'session_value': session[ID],
+#         #     'session_accessed': session.accessed,
+#         # },
+#         'cookies': [{cookie: request.cookies[cookie]}
+#             for cookie in request.cookies],
+#     }), 200)
+
+#     response.set_cookie('mouse', 'Cookie')
+
+#     return response
+
 class Home(Resource):
     def get(self):
         response_dict = {
@@ -60,11 +77,34 @@ class Login(Resource):
                 jsonify(user_dict),
                 200
             )
-        return response 
-        
-
-
+        return response
 api.add_resource(Login, '/logins')
+
+class Logout(Resource):
+
+    def delete(self):
+        session['user_id'] = None
+        return {'message': '204: No Content'}, 204
+
+api.add_resource(Logout, '/logout')
+
+class CheckSession(Resource):
+
+    def get(self):
+        user = User.query.filter(User.id == session.get('user_id')).first()
+        if user:
+            return {
+                "id": user.id,
+                "name": user.name,
+                "age": user.age,
+                "email": user.email,
+                "password": user.password,
+                "rank": user.rank
+            }
+        else:
+            return {'message': '401: Not Authorized'}, 401
+
+api.add_resource(CheckSession, '/check_session')
 
 
 class Playgrounds(Resource):

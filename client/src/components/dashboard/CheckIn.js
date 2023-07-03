@@ -53,7 +53,7 @@ function CheckIn({ user, playgrounds, onCheckIn }){
 
     function handleSubmit(e) {
         e.preventDefault()
-        console.log('Submitted!')
+        console.log(formData)
         fetch("/checkins", {
             method: "POST",
             headers: {
@@ -62,7 +62,7 @@ function CheckIn({ user, playgrounds, onCheckIn }){
             body: JSON.stringify(formData)
         })
         .then(r => r.json())
-        .then(data => onCheckIn(data))
+        .then(() => onCheckIn())
     }
 
     function handleClick(playgroundID) {
