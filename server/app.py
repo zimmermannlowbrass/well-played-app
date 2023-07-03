@@ -101,8 +101,8 @@ class CheckSession(Resource):
                 "password": user.password,
                 "rank": user.rank
             }
-        else:
-            return {'message': '401: Not Authorized'}, 401
+        # else:
+        #     return {'message': '401: Not Authorized'}, 401
 
 api.add_resource(CheckSession, '/check_session')
 

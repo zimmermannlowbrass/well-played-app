@@ -9,7 +9,7 @@ import Suggestion from "./Suggestion";
 import NewPlayground from "./NewPlayground";
 
 
-function Dashboard({ user }) {
+function Dashboard({ user, onSignOut }) {
     const history = useHistory()
     const [checkins, setCheckins] = useState([])
     const [playgrounds, setPlaygrounds] = useState([])
@@ -49,9 +49,19 @@ function Dashboard({ user }) {
                 setCheckins(filtererd_checkins)
             })
         }
+
+        function handleSignOut() {
+                fetch("/logout", {
+                  method: "DELETE",
+                }).then(() => onSignOut())
+                .then(history.push('/'))
+        }
+
         return (
             <div>
-                <h1 className="textBox">Welcome back {user.name}!</h1>
+                <h1 className="textBox">Welcome to WellPlayed!</h1>
+                <h3 className="textBox">Manhattan's premire playground social network</h3>
+                <h1 className="textBox">Welcome back {user.name}!<button onClick={() =>handleSignOut()}>signout</button></h1>
                 <NavBar />
                 <Switch>
                     <Route path="/dashboard/profile">

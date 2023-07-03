@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
 import Dashboard from "./dashboard/Dashboard";
 
-function Home({ onLogin, users, user }){
+function Home({ onLogin, users, user, onSignOut }){
 
   const [showPasword, setShowPassword] = useState(false)
   const history = useHistory()
@@ -15,7 +15,6 @@ function Home({ onLogin, users, user }){
         password:""
       },
       onSubmit: (values) => {
-        console.log(values)
           for (const user of users) {
               if (user.email === values.email) {
                   if (user.password === values.password) {
@@ -28,7 +27,6 @@ function Home({ onLogin, users, user }){
                     })
                       .then((r) => r.json())
                       .then(user => {
-                          console.log(user)
                           onLogin(user)
                           history.push('/dashboard')
                       });
@@ -42,7 +40,7 @@ function Home({ onLogin, users, user }){
   
   if (user) {
     return(
-      <Dashboard user = {user}/>
+      <Dashboard user = {user} onSignOut = {onSignOut}/>
     )
   }
 

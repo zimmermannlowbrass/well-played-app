@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 
 import SignUp from "./SignUp";
@@ -10,10 +10,8 @@ function App() {
   
   const [users, setUsers] = useState([])
   const [user, setUser] = useState()
-  const history = useHistory()
  
   useEffect(() => {
-    console.log("FETCH! ")
     fetch("/users")
       .then((res) => res.json())
       .then((data) => {
@@ -37,6 +35,10 @@ function App() {
     setUsers([...users, newUser])
   }
 
+  function handleUserSignOut(user) {
+    setUser(null)
+  }
+
   console.log(users, user)
 
   return (
@@ -47,6 +49,7 @@ function App() {
           user = {user}
           onLogin = {handleLogin}
           users = {users}
+          onSignOut = {handleUserSignOut}
           />
         </Route>
         <Route exact path='/signup'>
@@ -57,6 +60,7 @@ function App() {
         <Route path='/dashboard'>
           <Dashboard
           user = {user}
+          onSignOut = {handleUserSignOut}
           />
         </Route>
       </Switch>
