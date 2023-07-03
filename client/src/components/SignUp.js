@@ -10,7 +10,7 @@ function SignUp({ onSignUp }) {
 
   const formSchema = yup.object().shape({
     name: yup.string().required("Must enter a name").typeError("Please make sure you are only using letters!").max(100),
-    age: yup.number().positive().integer().typeError("Please enter a number").max(99),
+    age: yup.number().positive().integer().typeError("Please enter a number").max(99).min(18),
   });
 
   const formik = useFormik({

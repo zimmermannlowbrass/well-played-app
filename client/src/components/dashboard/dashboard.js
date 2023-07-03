@@ -61,7 +61,7 @@ function Dashboard({ user, onSignOut }) {
             <div>
                 <h1 className="textBox">Welcome to WellPlayed!</h1>
                 <h3 className="textBox">Manhattan's premire playground social network</h3>
-                <h1 className="textBox">Welcome back {user.name}!<button onClick={() =>handleSignOut()}>signout</button></h1>
+                <h1 className="textBox">Welcome back {user.name}!<button onClick={() =>handleSignOut()}>Sign Out</button></h1>
                 <NavBar />
                 <Switch>
                     <Route path="/dashboard/profile">

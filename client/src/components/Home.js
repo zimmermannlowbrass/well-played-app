@@ -71,7 +71,7 @@ function Home({ onLogin, users, user, onSignOut }){
               </button>
               <br />
               <br />
-              <button type="submit">Submit</button>
+              <button type="submit">Sign In</button>
           </form>
           <br />
           <br />
