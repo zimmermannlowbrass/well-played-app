@@ -19,7 +19,7 @@ function Profile({ user }){
                 <div className='cardContainer'>
                     <h2>Password</h2>
                     <input type="text"></input>
-                    <button onClick={(e) => handleClick(e)}>Edit Profile</button>
+                    <button onClick={(e) => handleClick(e)}>Unlock Profile</button>
                 </div>
             </div>
         </div>

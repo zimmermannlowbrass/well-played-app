@@ -200,6 +200,37 @@ class CheckIns(Resource):
     
 api.add_resource(CheckIns, '/checkins')
 
+class CheckInByID(Resource):
+    def get(self, id):
+        checkin = CheckIn.query.filter(CheckIn.id == id).first()
+        checkin_dict = {
+                "id": checkin.id,
+                "rating": checkin.rating,
+                "user_id": checkin.user.id,
+                "playground_id": checkin.playground.id,
+                "comment": checkin.comment
+            }
+        response = make_response(
+            jsonify(checkin_dict),
+            200
+        )
+        return response
+
+    def delete(self, id):
+        checkin = CheckIn.query.filter(CheckIn.id == id).first()
+        db.session.delete(checkin)
+        db.session.commit()
+
+        response_dict = {"message": "record successfully deleted"}
+
+        response = make_response(
+            response_dict,
+            200
+        )
+
+        return response
+api.add_resource(CheckInByID, '/checkins/<int:id>')
+
 class UserByID(Resource):
     def get(self, id):
         user = User.query.filter(User.id == id).first()

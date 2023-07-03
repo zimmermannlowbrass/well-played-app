@@ -13,6 +13,7 @@ function Dashboard({ user }) {
     const history = useHistory()
     const [checkins, setCheckins] = useState([])
     const [playgrounds, setPlaygrounds] = useState([])
+
     useEffect(() => {
         fetch("/checkins")
             .then(r => r.json())
@@ -21,6 +22,7 @@ function Dashboard({ user }) {
             .then(r => r.json())
             .then(setPlaygrounds)
     }, [])
+
     if (!user) {
         history.push('/')
     } else {
@@ -32,7 +34,20 @@ function Dashboard({ user }) {
         function handleAddCheckIn(checkin) {
             setCheckins([...checkins, checkin])
         }
-        
+        function handleAddPlayground(playground) {
+            setPlaygrounds([...playgrounds, playground])
+        }
+
+        function handleDeleteCheckIn(delete_checkin) {
+            fetch(`/checkins/${delete_checkin.id}`, {
+                method : "DELETE"
+                })
+            .then(() =>{
+                const filtererd_checkins = checkins.filter(checkin => checkin.id !== delete_checkin.id)
+                setCheckins(filtererd_checkins)
+            })
+        }
+        console.log(checkins)
         return (
             <div>
                 <h1 className="textBox">Welcome back {user.name}!</h1>
@@ -42,13 +57,13 @@ function Dashboard({ user }) {
                         <Profile user={user}/>
                     </Route>
                     <Route path="/dashboard/history">
-                        <History user_checkins={user_checkins} visited_playgrounds={visited_playgrounds}/>
+                        <History user_checkins={user_checkins} visited_playgrounds={visited_playgrounds} onDeleteCheckIn={handleDeleteCheckIn}/>
                     </Route>
                     <Route path="/dashboard/checkin">
                         <CheckIn user={user} playgrounds={playgrounds} onCheckIn={handleAddCheckIn}/>
                     </Route>
                     <Route path="/dashboard/addnewplayground">
-                        <NewPlayground />
+                        <NewPlayground onAddPlayground={handleAddPlayground}/>
                     </Route>
                     <Route path="/dashboard/suggestion">
                         <Suggestion checkins={not_user_checkins} playgrounds={playgrounds}/>

@@ -9,8 +9,7 @@ function App() {
   
   const [users, setUsers] = useState([])
   const [user, setUser] = useState()
-  // Pass the useFormik() hook initial form values and a submit function that will
-  // be called when the form is submitted
+ 
   useEffect(() => {
     console.log("FETCH! ")
     fetch("/users")
@@ -23,7 +22,6 @@ function App() {
   function handleLogin(user) {
     setUser(user)
   }
-
   function handleSignUp(newUser) {
     setUsers([...users, newUser])
   }
@@ -35,7 +33,6 @@ function App() {
       <Switch>
         <Route exact path='/'>
           <Home 
-          users = {users}
           onLogin = {handleLogin}
           />
         </Route>

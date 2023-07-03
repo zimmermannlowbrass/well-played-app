@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
 
 
-function Home({ users, onLogin }){
+function Home({ onLogin }){
 
     const [showPasword, setShowPassword] = useState(false)
     const history = useHistory()

@@ -1,10 +1,14 @@
 import React from "react";
 
-function History({ user_checkins, visited_playgrounds }){
+function History({ user_checkins, visited_playgrounds, onDeleteCheckIn }){
 
     const star = '⭐'
     const happy = '👼 YES!'
     const angry = '🤬 no.'
+
+    function handleDelete(checkin){
+        onDeleteCheckIn(checkin)
+    }
 
     const checkins = user_checkins.map(checkin => {
         const playground = visited_playgrounds.filter(playground => playground.id === checkin.playground_id)[0]
@@ -19,6 +23,8 @@ function History({ user_checkins, visited_playgrounds }){
                 <p>{checkin.comment}</p>
                 <p>Water Feature: {playground.has_water_feature ? happy : angry}</p>
                 <p>Restrooms: {playground.has_restroom ? happy : angry}</p>
+                <button>Edit this checkIn</button>
+                <button onClick={() => handleDelete(checkin)}>Delete this checkIn</button>
             </div>
         )
     })

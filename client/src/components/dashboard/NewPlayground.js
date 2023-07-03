@@ -1,12 +1,12 @@
 import React from "react";
 import { useFormik } from "formik";
 
-function NewPlayground() {
+function NewPlayground({ onAddPlayground }) {
     
     const formik = useFormik({
         initialValues: {
         name: '',
-        image: '',
+        image: "https://clipartix.com/wp-content/uploads/2018/03/school-play-clipart-2018-56.gif",
         neighborhood: '',
         has_restroom: false,
         has_water_feature: false
@@ -22,7 +22,7 @@ function NewPlayground() {
           body: JSON.stringify(values)
         })
         .then(r => r.json())
-        .then(data => console.log(data))
+        .then(data => onAddPlayground(data))
     }
 })
 
