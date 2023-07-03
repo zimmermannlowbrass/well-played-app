@@ -25,6 +25,7 @@ function Dashboard({ user }) {
         history.push('/')
     } else {
         const user_checkins = checkins.filter(checkin => checkin.user_id === user.id)
+        const not_user_checkins = checkins.filter(checkin => checkin.user_id !== user.id)
         const visited_playground_ids = user_checkins.map(checkin => checkin.playground_id)
         const visited_playgrounds = playgrounds.filter(playground => visited_playground_ids.includes(playground.id))
         
@@ -50,7 +51,7 @@ function Dashboard({ user }) {
                         <NewPlayground />
                     </Route>
                     <Route path="/dashboard/suggestion">
-                        <Suggestion />
+                        <Suggestion checkins={not_user_checkins} playgrounds={playgrounds}/>
                     </Route>
                 </Switch>
 

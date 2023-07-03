@@ -37,8 +37,8 @@ function Home({ users, onLogin }){
                 .then((r) => r.json())
                 .then(user => {
                     console.log(user)
-                    // onLogin(user)
-                    // history.push('/dashboard')
+                    onLogin(user)
+                    history.push('/dashboard')
                 });
         },
       });

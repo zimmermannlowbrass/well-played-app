@@ -45,6 +45,8 @@ class Login(Resource):
         ).filter(
             User.email == data.get('email')
         ).first()
+        if not user:
+            return 'Cannot be found'
         session['user_id'] = user.id
         user_dict =  {
                 "id": user.id,
@@ -58,15 +60,8 @@ class Login(Resource):
                 jsonify(user_dict),
                 200
             )
-        return response
-        response_dict = {
-            "message": "Welcome to POSTS!"
-        }
-        reponse = make_response(
-            response_dict,
-            200
-        )
-        return reponse
+        return response 
+        
 
 
 api.add_resource(Login, '/logins')
