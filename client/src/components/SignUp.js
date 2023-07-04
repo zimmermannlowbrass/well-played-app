@@ -9,9 +9,21 @@ function SignUp({ onSignUp }) {
   const history = useHistory()
 
   const formSchema = yup.object().shape({
-    name: yup.string().required("Must enter a name").typeError("Please make sure you are only using letters!").max(100),
+    name: yup.string().required("Name is required.").typeError("Please make sure you are only using letters!").max(100),
+    email: yup.string().email().required("Email is required.").typeError("Please enter a valid email"),
     age: yup.number().positive().integer().typeError("Please enter a number").max(99).min(18),
+    password: yup.string().required("Password is required.").min(8, "Password is too short - should be 8 chars minimum"),
   });
+
+  function passwordHasNumber(password) {
+    for (const x of password) {
+      if (parseFloat(x)) {
+        return true
+      }
+    }
+    alert('Password needs to have a number!')
+    return false
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -23,19 +35,24 @@ function SignUp({ onSignUp }) {
     },
     validationSchema: formSchema,
     onSubmit: (values) => {
-      console.log(values)
-      fetch("users", {
+      values.age = parseInt(values.age)
+      console.log(values.age)
+      if (passwordHasNumber(values.password)) {
+        console.log(values)
+        fetch("users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values)
-      })
-      .then(r => r.json())
-      .then(data => onSignUp(data))
-      history.push('/')
+        })
+        .then(r => r.json())
+        .then(() => onSignUp())
+        history.push('/')
+      }
     },
-  });
+  })
+
 
   return (
     <div>

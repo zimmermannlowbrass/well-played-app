@@ -83,7 +83,7 @@ class Playground(db.Model, SerializerMixin):
     
     @validates('image')
     def validate_image(self, key, url):
-        if ',' not in url:
+        if '.' not in url:
             raise ValueError('Must be a real URL.')
         return url
     

@@ -14,10 +14,7 @@ function App() {
   useEffect(() => {
     fetch("/users")
       .then((res) => res.json())
-      .then((data) => {
-        setUsers(data)
-      })
-    }, [])
+      .then(setUsers)}, [])
   
   useEffect(() => {
     fetch("/check_session")
@@ -31,8 +28,10 @@ function App() {
   function handleLogin(user) {
     setUser(user)
   }
-  function handleSignUp(newUser) {
-    setUsers([...users, newUser])
+  function handleSignUp() {
+    fetch("/users")
+      .then((res) => res.json())
+      .then(setUsers)
   }
 
   function handleUserSignOut(user) {

@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useState} from "react";
+import * as yup from "yup";
 import { useFormik } from "formik";
 
 function NewPlayground({ onAddPlayground }) {
 
+    const [hasURL, setHasURL] = useState(true)
+
+    const formSchema = yup.object().shape({
+        name: yup.string().required("Name is required.").typeError("Please make sure you are only using letters!").max(100),
+        neighborhood: yup.string().required("Neighborhood is required.").typeError("Please make sure you are only using letters!").max(100),
+    });
+
     const formik = useFormik({
         initialValues: {
         name: '',
-        image: "https://clipartix.com/wp-content/uploads/2018/03/school-play-clipart-2018-56.gif",
+        image: '',
         neighborhood: '',
         has_restroom: false,
         has_water_feature: false
     },
+    validationSchema: formSchema,
     onSubmit: (values) => {
+        if (!hasURL) {
+        values.image = "https://clipartix.com/wp-content/uploads/2018/03/school-play-clipart-2018-56.gif"
+        }
         console.log(values)
         fetch("/playgrounds", {
           method: "POST",
@@ -26,11 +38,11 @@ function NewPlayground({ onAddPlayground }) {
     }
 })
 
-
     return(
         <div>
             <h1>Here you can add a playground!</h1>
             <form onSubmit={formik.handleSubmit}>
+                <p>Name</p>
                 <input
                 type="text"
                 name="name"
@@ -38,15 +50,9 @@ function NewPlayground({ onAddPlayground }) {
                 onChange={formik.handleChange}
                 value={formik.values.name}
                 />
+                <p style={{ color: "red" }}> {formik.errors.name}</p>
                 <br />
-                <input
-                type="text"
-                name="image"
-                placeholder="Image URL..."
-                onChange={formik.handleChange}
-                value={formik.values.image}
-                />
-                <br />
+                <p>Neighborhood</p>
                 <input
                 type="text"
                 name="neighborhood"
@@ -54,6 +60,24 @@ function NewPlayground({ onAddPlayground }) {
                 onChange={formik.handleChange}
                 value={formik.values.neighborhood}
                 />
+                <p style={{ color: "red" }}> {formik.errors.neighborhood}</p>
+                <br />
+                <p>Image Link</p>
+                <button type="button" onClick={() => setHasURL(!hasURL)}>{hasURL ? 'Need an image?' : 'Already have an image?'}</button>
+                {hasURL ? <input
+                type="text"
+                name="image"
+                placeholder="Image URL..."
+                onChange={formik.handleChange}
+                value={formik.values.image}
+                /> : <input
+                readOnly
+                style={{background: 'grey'}}
+                type="text"
+                name="image"
+                onChange={formik.handleChange}
+                value="https://clipartix.com/wp-content/uploads/2018/03/school-play-clipart-2018-56.gif"
+                />}
                 <br />
                 {/* <input
                 type="text"

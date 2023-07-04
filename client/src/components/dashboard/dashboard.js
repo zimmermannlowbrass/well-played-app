@@ -31,7 +31,7 @@ function Dashboard({ user, onSignOut }) {
         const visited_playground_ids = user_checkins.map(checkin => checkin.playground_id)
         const visited_playgrounds = playgrounds.filter(playground => visited_playground_ids.includes(playground.id))
         
-        function handleAddCheckIn(checkin) {
+        function handleAddCheckIn() {
             fetch("/checkins")
                 .then(r => r.json())
                 .then(setCheckins)
