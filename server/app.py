@@ -289,9 +289,10 @@ class UserByID(Resource):
         return response
         
     def patch(self, id):
+        data = request.get_json()
         user = User.query.filter(User.id == id).first()
-        for attr in request.form:
-            setattr(user, attr, request.form.get(attr))
+        for attr in data:
+            setattr(user, attr, data[attr])
         db.session.add(user)
         db.session.commit()
         user_dict = {
