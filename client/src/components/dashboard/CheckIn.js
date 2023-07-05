@@ -1,83 +1,101 @@
 import React, { useState } from "react";
+import * as yup from "yup";
+import { useFormik } from "formik";
 
 function CheckIn({ user, playgrounds, onCheckIn }){
 
-    const star = '☆'
-    const likedStar = '★'
+    const star = '★'
     const happy = '👼 YES!'
     const angry = '🤬 no.'
+    const [playgroundID, setplaygroundID] = useState('')
+    const [submitted, setSubmitted] = useState('')
 
-    const [formData, setFormData] = useState({
-        rating: '',
-        comment: '',
-        playground_id: '',
-        user_id: user.id,
-    })
-
-    function handleChange(e) {
-        const type = e.target.name
-        if (type === 'rating') {
-            const value = parseInt(e.target.value)
-            setFormData({
-                ...formData , 
-                rating : value
-            })
-        } else {
-            const value = e.target.value
-            setFormData({
-                ...formData , 
-                [type] : value
-            })
+    function handleClick(ID) {
+        setSubmitted('')
+        if (playgroundID !== ID) {
+            setplaygroundID(ID)
         }
     }
+    const formSchema = yup.object().shape({
+        rating: yup.number().required("Rating is required.").min(1).max(5),
+        comment: yup.string().required("Comment is required.").min(1).max(250),
+    });
 
-    const form = 
-        <form onSubmit={handleSubmit}>
-            <input
-            type='text'
-            name='comment'
-            required
-            value = {formData.comment}
-            placeholder="Comment..."
-            onChange={handleChange}/>
-            <button>Submit</button> 
-        </form>
-
-    const ratingBar = 
-        <div>
-            <button onClick={handleChange} value='0' name="rating">reset</button>
-            <button onClick={handleChange} value='1' name="rating">{formData.rating  < 1 ? star : likedStar}</button>
-            <button onClick={handleChange} value='2' name="rating">{formData.rating < 2 ? star : likedStar}</button>
-            <button onClick={handleChange} value='3' name="rating">{formData.rating < 3 ? star : likedStar}</button>
-            <button onClick={handleChange} value='4' name="rating">{formData.rating < 4 ? star : likedStar}</button>
-            <button onClick={handleChange} value='5' name="rating">{formData.rating < 5 ? star : likedStar}</button>
-        </div>
-
-    function handleSubmit(e) {
-        e.preventDefault()
-        console.log(formData)
+    const formik = useFormik({
+        initialValues: {
+        rating: '',
+        comment: '',
+        user_id: user.id,
+        playground_id: playgroundID
+    },
+    validationSchema: formSchema,
+    onSubmit: (values, {resetForm}) => {
+        values.rating = parseInt(values.rating)
+        values.playground_id = playgroundID
         fetch("/checkins", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData)
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+          body: JSON.stringify(values)
         })
         .then(r => r.json())
         .then(() => onCheckIn())
+        .then(() => setSubmitted(playgroundID))
+        resetForm()
+        }
+    })
+
+    let stars = ''
+    for (let n = 0; n < formik.values.rating; n++) {
+        stars += star
     }
 
-    function handleClick(playgroundID) {
-        if (playgroundID === formData.playground_id) {
-            return
-        }
-        setFormData({
-            rating: '',
-            comment: '',
-            playground_id: playgroundID,
-            user_id: user.id,
-        })
-    }
+    const checkInForm = <form onSubmit={formik.handleSubmit}>
+        <p>Comment:</p>
+        <input
+        type="text"
+        name="comment"
+        placeholder="Comment here"
+        onChange={formik.handleChange}
+        value={formik.values.comment}
+        />
+        <p>Rating:</p>
+        <h2 style={{color: 'violet'}}>{stars}</h2>
+        <br />
+        <input
+        type="radio"
+        name="rating"
+        onChange={formik.handleChange}
+        value='1'
+        />
+        <input
+        type="radio"
+        name="rating"
+        onChange={formik.handleChange}
+        value='2'
+        />
+        <input
+        type="radio"
+        name="rating"
+        onChange={formik.handleChange}
+        value='3'
+        />
+        <input
+        type="radio"
+        name="rating"
+        onChange={formik.handleChange}
+        value='4'
+        />
+        <input
+        type="radio"
+        name="rating"
+        onChange={formik.handleChange}
+        value='5'
+        />
+        <button type="submit">Submit</button>
+    </form>
 
     const playground_choices = playgrounds.map(playground => {
         return (
@@ -90,15 +108,16 @@ function CheckIn({ user, playgrounds, onCheckIn }){
                     <p>Water Feature: {playground.has_water_feature ? happy : angry}</p>
                     <p>Restrooms: {playground.has_restroom ? happy : angry}</p>
                 </div>
-                {formData.playground_id === playground.id ? ratingBar : null}
-                {formData.playground_id === playground.id ? form : null}
+                {(playground.id === playgroundID) && (!submitted) ? checkInForm : null}
+                {playground.id === submitted ? <p style={{color: 'red'}}>Submitted!</p> : null}
             </div>
         )
     })
 
     return(
         <div>
-            <h1>Which park did you visit?</h1>
+            <p>Which park did you visit?</p>
+            <p>Click on the image!</p>
             {playground_choices}
         </div>
 

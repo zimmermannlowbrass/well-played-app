@@ -19,7 +19,7 @@ function Profile({ user, onSignOut }){
        }
     }
 
-    const cannotEditProfilePage = <div>
+    const cannotEditProfilePage = <div className="profileContainer">
         <form className='cardContainer' onSubmit={handleSubmit}>
             <h2>Password</h2>
             <input type={showPasword ? null : "password"}></input>
@@ -138,6 +138,8 @@ function Profile({ user, onSignOut }){
         <div>
             <p>Enter your password below to unlock and change your information!</p>
             {canEdit ? canEditProfilePage : cannotEditProfilePage}
+            <br/>
+            <br/>
             <button onClick={() =>handleSignOut()}>Sign Out</button>
         </div>
     )

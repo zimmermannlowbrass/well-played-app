@@ -35,70 +35,73 @@ function NewPlayground({ onAddPlayground }) {
         })
         .then(r => r.json())
         .then(() => onAddPlayground())
-    }
-})
+        }
+    })
 
     return(
         <div>
-            <h1>Here you can add a playground!</h1>
-            <form onSubmit={formik.handleSubmit}>
-                <p>Name</p>
-                <input
-                type="text"
-                name="name"
-                placeholder="Name..."
-                onChange={formik.handleChange}
-                value={formik.values.name}
-                />
-                <p style={{ color: "red" }}> {formik.errors.name}</p>
-                <br />
-                <p>Neighborhood</p>
-                <input
-                type="text"
-                name="neighborhood"
-                placeholder="Neighborhood..."
-                onChange={formik.handleChange}
-                value={formik.values.neighborhood}
-                />
-                <p style={{ color: "red" }}> {formik.errors.neighborhood}</p>
-                <br />
-                <p>Image Link</p>
-                <button type="button" onClick={() => setHasURL(!hasURL)}>{hasURL ? 'Need an image?' : 'Don\'t need an image?'}</button>
-                {hasURL ? <input
-                type="text"
-                name="image"
-                placeholder="Image URL..."
-                onChange={formik.handleChange}
-                value={formik.values.image}
-                /> : <input
-                readOnly
-                style={{background: 'grey'}}
-                type="text"
-                name="image"
-                onChange={formik.handleChange}
-                value="https://clipartix.com/wp-content/uploads/2018/03/school-play-clipart-2018-56.gif"
-                />}
-                <br />
-                {/* <input
-                type="text"
-                name="has_restroom"
-                placeholder="Has a restroom?"
-                onChange={formik.handleChange}
-                value={formik.values.has_restroom}
-                />
-                <br />
-                <input
-                type="text"
-                name="has_water_feature"
-                placeholder="Has a water feature?"
-                onChange={formik.handleChange}
-                value={formik.values.has_water_feature}
-                /> */}
-                <br />
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-    )
+            <p>What playground would you like to add?</p>
+            <div className="addPlaygroundContainer">
+                <form onSubmit={formik.handleSubmit}>
+                    <p>Name</p>
+                    <input
+                    type="text"
+                    name="name"
+                    placeholder="Name..."
+                    onChange={formik.handleChange}
+                    value={formik.values.name}
+                    />
+                    <p style={{ color: "red" }}> {formik.errors.name}</p>
+                    <br />
+                    <p>Neighborhood</p>
+                    <input
+                    type="text"
+                    name="neighborhood"
+                    placeholder="Neighborhood..."
+                    onChange={formik.handleChange}
+                    value={formik.values.neighborhood}
+                    />
+                    <p style={{ color: "red" }}> {formik.errors.neighborhood}</p>
+                    <br />
+                    <p>Image Link</p>
+                    <button type="button" onClick={() => setHasURL(!hasURL)}>{hasURL ? 'Need an image?' : 'Don\'t need an image?'}</button>
+                    <br />
+                    {hasURL ? <input
+                    type="text"
+                    name="image"
+                    placeholder="Image URL..."
+                    onChange={formik.handleChange}
+                    value={formik.values.image}
+                    /> : <input
+                    readOnly
+                    style={{background: 'grey'}}
+                    type="text"
+                    name="image"
+                    onChange={formik.handleChange}
+                    value="https://clipartix.com/wp-content/uploads/2018/03/school-play-clipart-2018-56.gif"
+                    />}
+                    <br />
+                    {/* <input
+                    type="text"
+                    name="has_restroom"
+                    placeholder="Has a restroom?"
+                    onChange={formik.handleChange}
+                    value={formik.values.has_restroom}
+                    />
+                    <br />
+                    <input
+                    type="text"
+                    name="has_water_feature"
+                    placeholder="Has a water feature?"
+                    onChange={formik.handleChange}
+                    value={formik.values.has_water_feature}
+                    /> */}
+                    <br />
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+    </div>
+    )    
 }
 
 export default NewPlayground;

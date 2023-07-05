@@ -55,7 +55,7 @@ function Dashboard({ user, onSignOut }) {
         return (
             <div>
                 <h1 className="textBox">Welcome to WellPlayed!</h1>
-                <h3 className="textBox">Manhattan's premire playground social network</h3>
+                <h3 className="textBox">Manhattan's premiere playground social network</h3>
                 <h1 className="textBox">Welcome {user.name}!</h1>
                 <NavBar />
                 <Switch>
@@ -75,8 +75,8 @@ function Dashboard({ user, onSignOut }) {
                         <Suggestion checkins={not_user_checkins} playgrounds={playgrounds}/>
                     </Route>
                 </Switch>
-                {window.location.href === 'http://localhost:4000/' ? <h1>Nice to see you again!</h1> : null}
-                {(window.location.href === 'http://localhost:4000/') || (window.location.href === 'http://localhost:4000/dashboard') ? imageOfNY : null}
+                {window.location.href === 'http://localhost:4000/' ? <h1>Nice to see you again!<br/>{imageOfNY}</h1> : null}
+                {window.location.href === 'http://localhost:4000/dashboard' ? imageOfNY : null}
             </div>
         )
     }

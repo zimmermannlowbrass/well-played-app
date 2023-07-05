@@ -3,6 +3,7 @@ import React, { useState } from "react";
 function Suggestion({ checkins, playgrounds }) {
 
     const [checkin, setCheckIn] = useState({})
+    const star = '⭐'
 
     function handleClick() {
         const randomNumber = Math.floor(Math.random() * checkins.length)
@@ -10,6 +11,10 @@ function Suggestion({ checkins, playgrounds }) {
     }
 
     const playground = playgrounds.filter(playground => playground.id === checkin.playground_id)[0]
+    let stars = ''
+    for (let n = 0; n < checkin.rating; n++) {
+        stars += star
+    }
     
     return(
         <div>
@@ -23,7 +28,7 @@ function Suggestion({ checkins, playgrounds }) {
                 <br/>
                 <img src={playground.image} alt={playground.name} style={{width: '200px', height: '200px'}}/>
                 <p>Playground name: {playground.name}</p>
-                <p>Rating: {checkin.rating}</p>
+                <p>Rating: {checkin.rating} - {stars}</p>
                 <p>Comment: {checkin.comment}</p>
              </div> 
              : null}

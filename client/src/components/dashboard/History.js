@@ -30,6 +30,7 @@ function History({ user_checkins, visited_playgrounds, onDeleteCheckIn }){
 
     return(
         <div>
+            <p>Here are all of your past checkins!</p>
             {checkins}
         </div>
     )
