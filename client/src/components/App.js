@@ -34,7 +34,7 @@ function App() {
       .then(setUsers)
   }
 
-  function handleUserSignOut(user) {
+  function handleUserSignOut() {
     setUser(null)
   }
 

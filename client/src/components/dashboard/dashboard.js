@@ -13,7 +13,6 @@ function Dashboard({ user, onSignOut }) {
     const history = useHistory()
     const [checkins, setCheckins] = useState([])
     const [playgrounds, setPlaygrounds] = useState([])
-
     useEffect(() => {
         fetch("/checkins")
             .then(r => r.json())
@@ -30,7 +29,8 @@ function Dashboard({ user, onSignOut }) {
         const not_user_checkins = checkins.filter(checkin => checkin.user_id !== user.id)
         const visited_playground_ids = user_checkins.map(checkin => checkin.playground_id)
         const visited_playgrounds = playgrounds.filter(playground => visited_playground_ids.includes(playground.id))
-        
+        const imageOfNY =  <img src="https://media.istockphoto.com/id/635703212/vector/sketch-of-new-york-city-america-child-style-drawing.jpg?s=612x612&w=0&k=20&c=hDT-Tl91okpxJdYr8hvfh4X35TWjch40aGi0sK2m4ME=" alt="Manhattan"/>
+
         function handleAddCheckIn() {
             fetch("/checkins")
                 .then(r => r.json())
@@ -52,22 +52,15 @@ function Dashboard({ user, onSignOut }) {
             })
         }
 
-        function handleSignOut() {
-                fetch("/logout", {
-                  method: "DELETE",
-                }).then(() => onSignOut())
-                .then(history.push('/'))
-        }
-
         return (
             <div>
                 <h1 className="textBox">Welcome to WellPlayed!</h1>
                 <h3 className="textBox">Manhattan's premire playground social network</h3>
-                <h1 className="textBox">Welcome back {user.name}!<button onClick={() =>handleSignOut()}>Sign Out</button></h1>
+                <h1 className="textBox">Welcome {user.name}!</h1>
                 <NavBar />
                 <Switch>
                     <Route path="/dashboard/profile">
-                        <Profile user={user}/>
+                        <Profile user={user} onSignOut={onSignOut}/>
                     </Route>
                     <Route path="/dashboard/history">
                         <History user_checkins={user_checkins} visited_playgrounds={visited_playgrounds} onDeleteCheckIn={handleDeleteCheckIn}/>
@@ -82,7 +75,8 @@ function Dashboard({ user, onSignOut }) {
                         <Suggestion checkins={not_user_checkins} playgrounds={playgrounds}/>
                     </Route>
                 </Switch>
-
+                {window.location.href === 'http://localhost:4000/' ? <h1>Nice to see you again!</h1> : null}
+                {(window.location.href === 'http://localhost:4000/') || (window.location.href === 'http://localhost:4000/dashboard') ? imageOfNY : null}
             </div>
         )
     }

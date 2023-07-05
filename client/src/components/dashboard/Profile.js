@@ -1,10 +1,13 @@
 import React, {useState} from "react";
+import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 
-function Profile({ user }){
-
+function Profile({ user, onSignOut }){
+    const history = useHistory()
     const [canEdit, setCanEdit] = useState(false)
+    const [showPasword, setShowPassword] = useState(false)
+
 
     function handleSubmit(e) {
        e.preventDefault()
@@ -17,15 +20,20 @@ function Profile({ user }){
     }
 
     const cannotEditProfilePage = <div>
+        <form className='cardContainer' onSubmit={handleSubmit}>
+            <h2>Password</h2>
+            <input type={showPasword ? null : "password"}></input>
+            <button type="button" onClick={() =>setShowPassword(!showPasword)}>
+                {showPasword ? "hide password" : "show password"}
+            </button>
+            <br />
+            <br />
+            <button>Unlock Profile</button>
+        </form>
         <h4>Name: {user.name}</h4>
         <h4>Rank: {user.rank}</h4>
         <h4>Age: {user.age}</h4>
         <h4>Email: {user.email}</h4>
-        <form className='cardContainer' onSubmit={handleSubmit}>
-            <h2>Password</h2>
-            <input type="text"></input>
-            <button>Unlock Profile</button>
-        </form>
     </div>
 
     const formSchema = yup.object().shape({
@@ -118,10 +126,19 @@ function Profile({ user }){
         </form>
     </div>
 
+    function handleSignOut() {
+        fetch("/logout", {
+        method: "DELETE",
+        })
+        .then(() => onSignOut())
+        .then(history.push('/'))
+    }
+
     return(
         <div>
-            <h1>This is the Profile section!</h1>
+            <p>Enter your password below to unlock and change your information!</p>
             {canEdit ? canEditProfilePage : cannotEditProfilePage}
+            <button onClick={() =>handleSignOut()}>Sign Out</button>
         </div>
     )
 }

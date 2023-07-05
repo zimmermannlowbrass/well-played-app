@@ -18,13 +18,11 @@ function History({ user_checkins, visited_playgrounds, onDeleteCheckIn }){
         }
         return(
             <div className="checkInContainer" key={user_checkins.indexOf(checkin)}>
-                <h3>{playground.name} -  {stars}</h3>
+                <h3>{playground.name} -  {stars} - <button onClick={() => handleDelete(checkin)}>Delete checkIn</button></h3>
                 <img className="playgroundImage" src={playground.image} alt={playground.name}/>
                 <p>{checkin.comment}</p>
                 <p>Water Feature: {playground.has_water_feature ? happy : angry}</p>
                 <p>Restrooms: {playground.has_restroom ? happy : angry}</p>
-                <button>Edit this checkIn</button>
-                <button onClick={() => handleDelete(checkin)}>Delete this checkIn</button>
             </div>
         )
     })

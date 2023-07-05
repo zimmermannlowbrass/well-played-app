@@ -39,7 +39,6 @@ class Home(Resource):
             200
         )
         return reponse
-api.add_resource(Home, '/')
 
 class Login(Resource):
 
@@ -78,7 +77,6 @@ class Login(Resource):
                 200
             )
         return response
-api.add_resource(Login, '/logins')
 
 class Logout(Resource):
 
@@ -86,7 +84,6 @@ class Logout(Resource):
         session['user_id'] = None
         return {'message': '204: No Content'}, 204
 
-api.add_resource(Logout, '/logout')
 
 class CheckSession(Resource):
 
@@ -104,7 +101,6 @@ class CheckSession(Resource):
         # else:
         #     return {'message': '401: Not Authorized'}, 401
 
-api.add_resource(CheckSession, '/check_session')
 
 
 class Playgrounds(Resource):
@@ -151,7 +147,6 @@ class Playgrounds(Resource):
         )
         return response
     
-api.add_resource(Playgrounds, '/playgrounds')
 
 class Users(Resource):
     def get(self):
@@ -196,7 +191,6 @@ class Users(Resource):
         )
         return response
     
-api.add_resource(Users, '/users')
 
 class CheckIns(Resource):
     def get(self):
@@ -238,11 +232,29 @@ class CheckIns(Resource):
         )
         return response
     
-api.add_resource(CheckIns, '/checkins')
-
 class CheckInByID(Resource):
     def get(self, id):
         checkin = CheckIn.query.filter(CheckIn.id == id).first()
+        checkin_dict = {
+                "id": checkin.id,
+                "rating": checkin.rating,
+                "user_id": checkin.user.id,
+                "playground_id": checkin.playground.id,
+                "comment": checkin.comment
+            }
+        response = make_response(
+            jsonify(checkin_dict),
+            200
+        )
+        return response
+    
+    def patch(self, id):
+        data = request.get_json()
+        checkin = CheckIn.query.filter(CheckIn.id == id).first()
+        for attr in data:
+            setattr(checkin, attr, data[attr])
+        db.session.add(checkin)
+        db.session.commit()
         checkin_dict = {
                 "id": checkin.id,
                 "rating": checkin.rating,
@@ -269,7 +281,6 @@ class CheckInByID(Resource):
         )
 
         return response
-api.add_resource(CheckInByID, '/checkins/<int:id>')
 
 class UserByID(Resource):
     def get(self, id):
@@ -324,14 +335,26 @@ class UserByID(Resource):
             200
         )
         return response
-api.add_resource(UserByID, '/users/<int:id>')
 
-@app.route('/playgrounds/<int:id>')
-def playground_by_id(id):
-    playground = Playground.query.filter(Playground.id == id).first()
-    response = make_response(jsonify(playground.to_dict()), 200)
-    response.headers['Content-Type'] = 'application/json'
-    return response
+api.add_resource(Home, '/')
+api.add_resource(Login, '/logins')
+api.add_resource(Logout, '/logout')
+api.add_resource(CheckSession, '/check_session')
+api.add_resource(Users, '/users')
+api.add_resource(UserByID, '/users/<int:id>')
+api.add_resource(Playgrounds, '/playgrounds')
+api.add_resource(CheckIns, '/checkins')
+api.add_resource(CheckInByID, '/checkins/<int:id>')
+
+
+
+
+# @app.route('/playgrounds/<int:id>')
+# def playground_by_id(id):
+#     playground = Playground.query.filter(Playground.id == id).first()
+#     response = make_response(jsonify(playground.to_dict()), 200)
+#     response.headers['Content-Type'] = 'application/json'
+#     return response
 
 
 

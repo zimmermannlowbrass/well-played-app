@@ -4,6 +4,8 @@ function CheckIn({ user, playgrounds, onCheckIn }){
 
     const star = '☆'
     const likedStar = '★'
+    const happy = '👼 YES!'
+    const angry = '🤬 no.'
 
     const [formData, setFormData] = useState({
         rating: '',
@@ -82,9 +84,11 @@ function CheckIn({ user, playgrounds, onCheckIn }){
             <div className="playgroundChoiceCards" key={playground.id}>
                 <div onClick={() => handleClick(playground.id)}>
                     <br />
-                    <h3>{playground.name}</h3>
+                    <h3 style={{fontWeight: 'bold'}}>{playground.name}</h3>
                     <img src={playground.image} alt={playground.name} style={{width: '200px', height: '200px'}}/>
                     <p>Neighborhood: {playground.neighborhood}</p>
+                    <p>Water Feature: {playground.has_water_feature ? happy : angry}</p>
+                    <p>Restrooms: {playground.has_restroom ? happy : angry}</p>
                 </div>
                 {formData.playground_id === playground.id ? ratingBar : null}
                 {formData.playground_id === playground.id ? form : null}
