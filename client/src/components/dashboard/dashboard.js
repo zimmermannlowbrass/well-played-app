@@ -36,8 +36,10 @@ function Dashboard({ user, onSignOut }) {
                 .then(r => r.json())
                 .then(setCheckins)
         }
-        function handleAddPlayground(playground) {
-            setPlaygrounds([...playgrounds, playground])
+        function handleAddPlayground() {
+            fetch("/playgrounds")
+            .then(r => r.json())
+            .then(setPlaygrounds)
         }
 
         function handleDeleteCheckIn(delete_checkin) {

@@ -36,9 +36,7 @@ function SignUp({ onSignUp }) {
     validationSchema: formSchema,
     onSubmit: (values) => {
       values.age = parseInt(values.age)
-      console.log(values.age)
       if (passwordHasNumber(values.password)) {
-        console.log(values)
         fetch("users", {
         method: "POST",
         headers: {

@@ -34,7 +34,7 @@ function NewPlayground({ onAddPlayground }) {
           body: JSON.stringify(values)
         })
         .then(r => r.json())
-        .then(data => onAddPlayground(data))
+        .then(() => onAddPlayground())
     }
 })
 
@@ -63,7 +63,7 @@ function NewPlayground({ onAddPlayground }) {
                 <p style={{ color: "red" }}> {formik.errors.neighborhood}</p>
                 <br />
                 <p>Image Link</p>
-                <button type="button" onClick={() => setHasURL(!hasURL)}>{hasURL ? 'Need an image?' : 'Already have an image?'}</button>
+                <button type="button" onClick={() => setHasURL(!hasURL)}>{hasURL ? 'Need an image?' : 'Don\'t need an image?'}</button>
                 {hasURL ? <input
                 type="text"
                 name="image"
