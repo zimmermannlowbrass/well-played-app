@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 function NewPlayground({ onAddPlayground }) {
 
     const [hasURL, setHasURL] = useState(true)
+    const [submitted, setSubmitted] = useState(false)
 
     const formSchema = yup.object().shape({
         name: yup.string().required("Name is required.").typeError("Please make sure you are only using letters!").max(100),
@@ -35,12 +36,21 @@ function NewPlayground({ onAddPlayground }) {
         })
         .then(r => r.json())
         .then(() => onAddPlayground())
+        setSubmitted(!submitted)
         }
     })
+    
 
     return(
         <div>
-            <p>What playground would you like to add?</p>
+            {submitted ? 
+            <div>
+                <h2>Thanks for submitting!</h2>
+                <button onClick={() => setSubmitted(!submitted)}>Submit a new playground</button>
+            </div>
+            :
+            <div>
+                <p>What playground would you like to add?</p>
             <div className="addPlaygroundContainer">
                 <form onSubmit={formik.handleSubmit}>
                     <p>Name</p>
@@ -101,6 +111,9 @@ function NewPlayground({ onAddPlayground }) {
                 </form>
                 <br />
             </div>
+            </div>
+            }
+            
     </div>
     )    
 }
