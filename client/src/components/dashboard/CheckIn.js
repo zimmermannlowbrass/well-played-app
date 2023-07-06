@@ -61,8 +61,10 @@ function CheckIn({ user, playgrounds, onCheckIn }){
         onChange={formik.handleChange}
         value={formik.values.comment}
         />
+        <p style={{ color: "red" }}> {formik.errors.comment}</p>
         <p>Rating:</p>
         <h2 style={{color: 'violet'}}>{stars}</h2>
+        1 | 2 | 3 | 4 | 5
         <br />
         <input
         type="radio"
@@ -94,6 +96,8 @@ function CheckIn({ user, playgrounds, onCheckIn }){
         onChange={formik.handleChange}
         value='5'
         />
+        <br/>
+        <p style={{ color: "red" }}> {formik.errors.rating}</p>
         <button type="submit">Submit</button>
     </form>
 

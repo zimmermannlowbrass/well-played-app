@@ -81,7 +81,9 @@ function NewPlayground({ onAddPlayground }) {
                     value={formik.values.neighborhood}
                     />
                     <p style={{ color: "red" }}> {formik.errors.neighborhood}</p>
-                    Has a bathroom? -
+                    Does your playground:
+                    <br />
+                    have a bathroom? -
                     <input
                     type="radio"
                     name="has_restroom"
@@ -97,7 +99,7 @@ function NewPlayground({ onAddPlayground }) {
                     />
                     No
                     <br />
-                    Has a water feature? -
+                    have a water feature? -
                     <input
                     type="radio"
                     name="has_water_feature"

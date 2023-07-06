@@ -10,24 +10,6 @@ from flask_restful import Resource
 from config import app, db, api
 from models import User, Playground, CheckIn
 
-# Views go here!
-
-# @app.route('/sessions/<int:ID>', methods=['GET'])
-# def show_session(ID):
-
-#     response = make_response(jsonify({
-#         # 'session': {
-#         #     'session_key': ID,
-#         #     'session_value': session[ID],
-#         #     'session_accessed': session.accessed,
-#         # },
-#         'cookies': [{cookie: request.cookies[cookie]}
-#             for cookie in request.cookies],
-#     }), 200)
-
-#     response.set_cookie('mouse', 'Cookie')
-
-#     return response
 
 class Home(Resource):
     def get(self):
@@ -97,10 +79,7 @@ class CheckSession(Resource):
                 "email": user.email,
                 "password": user.password,
                 "rank": user.rank
-            }
-        # else:
-        #     return {'message': '401: Not Authorized'}, 401
-
+            }, 200
 
 
 class Playgrounds(Resource):
