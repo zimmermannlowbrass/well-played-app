@@ -62,7 +62,7 @@ class Login(Resource):
             User.email == data.get('email')
         ).first()
         if not user:
-            return 'Cannot be found'
+            return {"Message" : "User cannot be found"}, 401
         session['user_id'] = user.id
         user_dict =  {
                 "id": user.id,

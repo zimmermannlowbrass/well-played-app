@@ -99,6 +99,7 @@ function NewPlayground({ onAddPlayground }) {
                     <br />
                     <button type="submit">Submit</button>
                 </form>
+                <br />
             </div>
     </div>
     )    
