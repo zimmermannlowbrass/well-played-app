@@ -59,6 +59,9 @@ function Dashboard({ user, onSignOut }) {
                 <h1 className="textBox">Welcome {user.name}!</h1>
                 <NavBar />
                 <Switch>
+                    <Route exact path="/dashboard">
+                        <div><h1>You have been logged in!</h1><br/>{imageOfNY}</div>
+                    </Route>
                     <Route path="/dashboard/profile">
                         <Profile user={user} onSignOut={onSignOut}/>
                     </Route>
@@ -75,8 +78,7 @@ function Dashboard({ user, onSignOut }) {
                         <Suggestion checkins={not_user_checkins} playgrounds={playgrounds}/>
                     </Route>
                 </Switch>
-                {window.location.href === 'http://localhost:4000/' ? <h1>Nice to see you again!<br/>{imageOfNY}</h1> : null}
-                {window.location.href === 'http://localhost:4000/dashboard' ? imageOfNY : null}
+                {window.location.href === 'http://localhost:4000/' ? <div><h1>Nice to see you again!</h1><br/>{imageOfNY}</div> : null}
             </div>
         )
     }

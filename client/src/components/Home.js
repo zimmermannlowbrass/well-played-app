@@ -7,6 +7,7 @@ import Dashboard from "./dashboard/Dashboard";
 function Home({ onLogin, users, user, onSignOut }){
 
   const [showPasword, setShowPassword] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const history = useHistory()
 
   const formik = useFormik({
@@ -31,8 +32,10 @@ function Home({ onLogin, users, user, onSignOut }){
                           history.push('/dashboard')
                       });
                   } else {
-                      console.log('Wrong password')
+                      setErrorMessage('Incorrect Passord.')
                   }
+              } else {
+                setErrorMessage('Email not found.')
               }
           }
       },
@@ -74,6 +77,7 @@ function Home({ onLogin, users, user, onSignOut }){
               <button type="submit">Sign In</button>
           </form>
           <br />
+          {errorMessage}
           <br />
           <h3>Don't have an account yet?</h3>
           <NavLink to="/signup"><button>Register New User</button></NavLink>

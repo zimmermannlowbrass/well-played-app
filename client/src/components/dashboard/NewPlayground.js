@@ -17,13 +17,23 @@ function NewPlayground({ onAddPlayground }) {
         name: '',
         image: '',
         neighborhood: '',
-        has_restroom: false,
-        has_water_feature: false
+        has_restroom: '',
+        has_water_feature: ''
     },
     validationSchema: formSchema,
     onSubmit: (values) => {
         if (!hasURL) {
         values.image = "https://clipartix.com/wp-content/uploads/2018/03/school-play-clipart-2018-56.gif"
+        }
+        if (values.has_restroom === 'Yes') {
+            values.has_restroom = true
+        } else {
+            values.has_restroom = false
+        }
+        if (values.has_water_feature === 'Yes') {
+            values.has_water_feature = true
+        } else {
+            values.has_water_feature = false
         }
         console.log(values)
         fetch("/playgrounds", {
@@ -62,7 +72,6 @@ function NewPlayground({ onAddPlayground }) {
                     value={formik.values.name}
                     />
                     <p style={{ color: "red" }}> {formik.errors.name}</p>
-                    <br />
                     <p>Neighborhood</p>
                     <input
                     type="text"
@@ -72,6 +81,37 @@ function NewPlayground({ onAddPlayground }) {
                     value={formik.values.neighborhood}
                     />
                     <p style={{ color: "red" }}> {formik.errors.neighborhood}</p>
+                    Has a bathroom? -
+                    <input
+                    type="radio"
+                    name="has_restroom"
+                    onChange={formik.handleChange}
+                    value='Yes'
+                    />
+                    Yes
+                    <input
+                    type="radio"
+                    name="has_restroom"
+                    onChange={formik.handleChange}
+                    value='No'
+                    />
+                    No
+                    <br />
+                    Has a water feature? -
+                    <input
+                    type="radio"
+                    name="has_water_feature"
+                    onChange={formik.handleChange}
+                    value='Yes'
+                    />
+                    Yes
+                    <input
+                    type="radio"
+                    name="has_water_feature"
+                    onChange={formik.handleChange}
+                    value='No'
+                    />
+                    No
                     <br />
                     <p>Image Link</p>
                     <button type="button" onClick={() => setHasURL(!hasURL)}>{hasURL ? 'Need an image?' : 'Don\'t need an image?'}</button>
