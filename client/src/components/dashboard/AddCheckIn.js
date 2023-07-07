@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 
-function CheckIn({ user, playgrounds, onCheckIn }){
+import "../../stylesheets/AddCheckIn.css"
+
+function AddCheckIn({ user, playgrounds, onAddCheckIn }){
 
     const star = '★'
     const happy = '👼 YES!'
@@ -41,7 +43,7 @@ function CheckIn({ user, playgrounds, onCheckIn }){
           body: JSON.stringify(values)
         })
         .then(r => r.json())
-        .then(() => onCheckIn())
+        .then(() => onAddCheckIn())
         .then(() => setSubmitted(playgroundID))
         resetForm()
         }
@@ -103,7 +105,7 @@ function CheckIn({ user, playgrounds, onCheckIn }){
 
     const playground_choices = playgrounds.map(playground => {
         return (
-            <div className="playgroundChoiceCards" key={playground.id}>
+            <div className="CheckInChoiceCards" key={playground.id}>
                 <div onClick={() => handleClick(playground.id)}>
                     <br />
                     <h3 style={{fontWeight: 'bold'}}>{playground.name}</h3>
@@ -128,4 +130,4 @@ function CheckIn({ user, playgrounds, onCheckIn }){
     )
 }
 
-export default CheckIn;
+export default AddCheckIn;

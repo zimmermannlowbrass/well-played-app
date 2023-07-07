@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
+import "../../stylesheets/Profile.css"
 
 function Profile({ user, onSignOut }){
     const history = useHistory()

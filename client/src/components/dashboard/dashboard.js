@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useHistory, Route, Switch } from "react-router-dom";
 
 import NavBar from "./NavBar";
-import CheckIn from "./CheckIn";
+import AddCheckIn from "./AddCheckIn";
 import History from "./History";
 import Profile from "./Profile";
 import Suggestion from "./Suggestion";
-import NewPlayground from "./NewPlayground";
+import AddNewPlayground from "./AddNewPlayground";
 
 
 function Dashboard({ user, onSignOut }) {
@@ -68,11 +68,11 @@ function Dashboard({ user, onSignOut }) {
                     <Route path="/dashboard/history">
                         <History user_checkins={user_checkins} visited_playgrounds={visited_playgrounds} onDeleteCheckIn={handleDeleteCheckIn}/>
                     </Route>
-                    <Route path="/dashboard/checkin">
-                        <CheckIn user={user} playgrounds={playgrounds} onCheckIn={handleAddCheckIn}/>
+                    <Route path="/dashboard/addcheckin">
+                        <AddCheckIn user={user} playgrounds={playgrounds} onAddCheckIn={handleAddCheckIn}/>
                     </Route>
                     <Route path="/dashboard/addnewplayground">
-                        <NewPlayground onAddPlayground={handleAddPlayground}/>
+                        <AddNewPlayground onAddPlayground={handleAddPlayground}/>
                     </Route>
                     <Route path="/dashboard/suggestion">
                         <Suggestion checkins={not_user_checkins} playgrounds={playgrounds}/>

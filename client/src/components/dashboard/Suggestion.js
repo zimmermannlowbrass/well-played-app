@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import "../../stylesheets/Suggestion.css"
+
 function Suggestion({ checkins, playgrounds }) {
 
     const [checkin, setCheckIn] = useState({})

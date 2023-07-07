@@ -2,14 +2,19 @@ import React, { useState} from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 
-function NewPlayground({ onAddPlayground }) {
+import "../../stylesheets/AddNewPlayground.css"
+
+function AddNewPlayground({ onAddPlayground }) {
 
     const [hasURL, setHasURL] = useState(true)
     const [submitted, setSubmitted] = useState(false)
+    const playgroundImageClipArt = "https://clipartix.com/wp-content/uploads/2018/03/school-play-clipart-2018-56.gif"
 
     const formSchema = yup.object().shape({
         name: yup.string().required("Name is required.").typeError("Please make sure you are only using letters!").max(100),
         neighborhood: yup.string().required("Neighborhood is required.").typeError("Please make sure you are only using letters!").max(100),
+        image: yup.string().required("Image is required. Feel free to use ours!"),
+
     });
 
     const formik = useFormik({
@@ -49,7 +54,16 @@ function NewPlayground({ onAddPlayground }) {
         setSubmitted(!submitted)
         }
     })
-    
+
+    function handleChange() {
+        setHasURL(!hasURL)
+        formik.errors.image = ''
+        if (formik.values.image !== playgroundImageClipArt) {
+            formik.values.image = playgroundImageClipArt
+        } else {
+            formik.values.image = ''
+        }
+    }
 
     return(
         <div>
@@ -116,7 +130,7 @@ function NewPlayground({ onAddPlayground }) {
                     No
                     <br />
                     <p>Image Link</p>
-                    <button type="button" onClick={() => setHasURL(!hasURL)}>{hasURL ? 'Need an image?' : 'Don\'t need an image?'}</button>
+                    <button type="button" onClick={() => handleChange()}>{hasURL ? 'Need an image?' : 'Don\'t need an image?'}</button>
                     <br />
                     {hasURL ? <input
                     type="text"
@@ -130,24 +144,9 @@ function NewPlayground({ onAddPlayground }) {
                     type="text"
                     name="image"
                     onChange={formik.handleChange}
-                    value="https://clipartix.com/wp-content/uploads/2018/03/school-play-clipart-2018-56.gif"
+                    value={formik.values.image}
                     />}
-                    <br />
-                    {/* <input
-                    type="text"
-                    name="has_restroom"
-                    placeholder="Has a restroom?"
-                    onChange={formik.handleChange}
-                    value={formik.values.has_restroom}
-                    />
-                    <br />
-                    <input
-                    type="text"
-                    name="has_water_feature"
-                    placeholder="Has a water feature?"
-                    onChange={formik.handleChange}
-                    value={formik.values.has_water_feature}
-                    /> */}
+                    <p style={{ color: "red" }}> {formik.errors.image}</p>
                     <br />
                     <button type="submit">Submit</button>
                 </form>
@@ -160,4 +159,4 @@ function NewPlayground({ onAddPlayground }) {
     )    
 }
 
-export default NewPlayground;
+export default AddNewPlayground;

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 
-
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import Dashboard from "./dashboard/Dashboard";
