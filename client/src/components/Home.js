@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
 import Dashboard from "./dashboard/Dashboard";
 
-function Home({ onLogin, users, user, onSignOut }){
+function Home({ onLogin, user, onSignOut }){
 
   const [showPasword, setShowPassword] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -16,28 +16,23 @@ function Home({ onLogin, users, user, onSignOut }){
         password:""
       },
       onSubmit: (values) => {
-          for (const user of users) {
-              if (user.email === values.email) {
-                  if (user.password === values.password) {
-                    fetch("/logins", {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify(values),
-                    })
-                      .then((r) => r.json())
-                      .then(user => {
-                          onLogin(user)
-                          history.push('/dashboard')
-                      });
-                  } else {
-                      setErrorMessage('Incorrect Passord.')
-                  }
-              } else {
-                setErrorMessage('Email not found.')
-              }
+        fetch("/logins", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        })
+        .then((r) => {
+          if (r.ok) {
+            r.json().then((user) => {
+              onLogin(user)
+              history.push('/dashboard')
+            })
+          } else {
+            r.json().then(err => setErrorMessage(err['error']))
           }
+        })
       },
     });
   

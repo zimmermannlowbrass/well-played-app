@@ -27,9 +27,8 @@ migrate = Migrate(app, db, render_as_batch=True)
 db.init_app(app)
 
 # Instantiate REST API
+bcrypt = Bcrypt(app)
 api = Api(app)
 
 # Instantiate CORS
 CORS(app, supports_credentials=True)
-
-bcrypt = Bcrypt(app)

@@ -38,11 +38,34 @@ class Login(Resource):
     def post(self):
 
         data = request.get_json()
+        email = data.get('email')
+        password = data.get('password')
+
         user = User.query.filter(
-            User.password == data.get('password')
-        ).filter(
-            User.email == data.get('email')
+            User.email == email
         ).first()
+
+        if user:
+            if user.authenticate(password):
+
+                session['user_id'] = user.id
+                user_dict =  {
+                "id": user.id,
+                "name": user.name,
+                "age": user.age,
+                "email": user.email,
+                "password": user.password,
+                "rank": user.rank
+            }
+                response = make_response(
+                        jsonify(user_dict),
+                        200
+                    )
+                return response
+            return {'error': 'Incorrect password. Double check and try again!'}, 401
+
+        return {'error': 'Unauthorized Email. Double check and try again!'}, 401
+
         if not user:
             return {"Message" : "User cannot be found"}, 401
         session['user_id'] = user.id
@@ -155,6 +178,7 @@ class Users(Resource):
                 password=data.get("password"),
                 rank=data.get("rank")
             )
+        new_user.password_hash = new_user.password
         db.session.add(new_user)
         db.session.commit()
         user_dict = {

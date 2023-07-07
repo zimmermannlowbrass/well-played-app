@@ -47,7 +47,6 @@ function App() {
           <Home 
           user = {user}
           onLogin = {handleLogin}
-          users = {users}
           onSignOut = {handleUserSignOut}
           />
         </Route>

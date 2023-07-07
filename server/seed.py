@@ -9,6 +9,7 @@ from faker import Faker
 # Local imports
 from app import app
 from models import db, User, Playground, CheckIn
+from config import bcrypt
 
 fake = Faker()
 
@@ -30,6 +31,7 @@ if __name__ == '__main__':
                 password=(fake.user_name().title() + str(fake.random_int(min=1000, max=9999))),
                 rank=randint(1,10),
             )
+            user.password_hash = user.password
             users.append(user)
 
         hippo = ['Hippo Playground', "https://tinybeans.com/wp-content/uploads/2019/04/hippo-playground-.jpg?w=640", 'Upper West Side', True, True]
