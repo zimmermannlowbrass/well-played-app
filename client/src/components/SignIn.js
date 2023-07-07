@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
 import Dashboard from "./dashboard/Dashboard";
 
-function Home({ onLogin, user, onSignOut }){
+function SignIn({ onLogin, user, onSignOut }){
 
   const [showPasword, setShowPassword] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -80,4 +80,4 @@ function Home({ onLogin, user, onSignOut }){
   )
 }
 
-export default Home;
+export default SignIn;

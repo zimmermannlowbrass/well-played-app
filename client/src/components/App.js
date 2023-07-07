@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 
 
 import SignUp from "./SignUp";
-import Home from "./Home";
+import SignIn from "./SignIn";
 import Dashboard from "./dashboard/Dashboard";
 
 function App() {
@@ -44,7 +44,7 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path='/'>
-          <Home 
+          <SignIn 
           user = {user}
           onLogin = {handleLogin}
           onSignOut = {handleUserSignOut}
