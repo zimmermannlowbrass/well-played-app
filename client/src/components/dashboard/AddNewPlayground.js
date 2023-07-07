@@ -76,7 +76,7 @@ function AddNewPlayground({ onAddPlayground }) {
             <div>
                 <p>What playground would you like to add?</p>
             <div className="addPlaygroundContainer">
-                <form onSubmit={formik.handleSubmit}>
+                <form className="addPlaygroundForm" onSubmit={formik.handleSubmit}>
                     <p>Name</p>
                     <input
                     type="text"
@@ -148,7 +148,7 @@ function AddNewPlayground({ onAddPlayground }) {
                     />}
                     <p style={{ color: "red" }}> {formik.errors.image}</p>
                     <br />
-                    <button type="submit">Submit</button>
+                    <button id="addPlaygroundButton" type="submit">Submit</button>
                 </form>
                 <br />
             </div>

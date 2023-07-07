@@ -1,5 +1,7 @@
 import React from "react";
 
+import "../../stylesheets/History.css"
+
 function History({ user_checkins, visited_playgrounds, onDeleteCheckIn }){
 
     const star = '⭐'
@@ -17,7 +19,7 @@ function History({ user_checkins, visited_playgrounds, onDeleteCheckIn }){
             stars += star
         }
         return(
-            <div className="checkInContainer" key={user_checkins.indexOf(checkin)}>
+            <div className="historyCheckins" key={user_checkins.indexOf(checkin)}>
                 <h3>{playground.name} -  {stars} - <button onClick={() => handleDelete(checkin)}>Delete checkIn</button></h3>
                 <img className="playgroundImage" src={playground.image} alt={playground.name}/>
                 <p>{checkin.comment}</p>
@@ -26,7 +28,6 @@ function History({ user_checkins, visited_playgrounds, onDeleteCheckIn }){
             </div>
         )
     })
-
 
     return(
         <div>

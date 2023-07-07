@@ -1,0 +1,14 @@
+.historyCheckins {
+    display: inline-block;
+    border-style: groove;
+    border-color: blueviolet;
+    background-color: rgb(255, 204, 204);
+    box-shadow: inset 0 10px 5px rgba(0,0,0,0.16), 0 6px 10px rgba(0,0,0,0.45);
+    border-radius: 10px;
+    width: 650px;
+  }
+  
+  .playgroundImage {
+    width: 600px;
+    height: 350px;
+}

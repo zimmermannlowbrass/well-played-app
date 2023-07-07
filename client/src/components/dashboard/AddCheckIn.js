@@ -105,11 +105,11 @@ function AddCheckIn({ user, playgrounds, onAddCheckIn }){
 
     const playground_choices = playgrounds.map(playground => {
         return (
-            <div className="CheckInChoiceCards" key={playground.id}>
+            <div className="addCheckInCard" key={playground.id}>
                 <div onClick={() => handleClick(playground.id)}>
                     <br />
                     <h3 style={{fontWeight: 'bold'}}>{playground.name}</h3>
-                    <img src={playground.image} alt={playground.name} style={{width: '200px', height: '200px'}}/>
+                    <img className="addCheckInImage" src={playground.image} alt={playground.name}/>
                     <p>Neighborhood: {playground.neighborhood}</p>
                     <p>Water Feature: {playground.has_water_feature ? happy : angry}</p>
                     <p>Restrooms: {playground.has_restroom ? happy : angry}</p>

@@ -3,6 +3,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
 
+import "../stylesheets/SignUp.css"
 
 function SignUp({ onSignUp }) {
 
@@ -53,7 +54,7 @@ function SignUp({ onSignUp }) {
 
 
   return (
-    <div>
+    <div className="signUpForm">
         <h1>Customer sign up form</h1>
         <form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
             <label htmlFor="name">Name</label>
