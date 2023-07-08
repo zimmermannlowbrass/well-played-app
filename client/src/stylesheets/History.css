@@ -8,6 +8,12 @@
     width: 650px;
   }
   
+  .historyCheckins:hover {
+    transform: scale(1.1);
+    transition: all 0.2s;
+    border: 5px solid rgba(246, 246, 246, 0.872);
+  }
+
   .playgroundImage {
     width: 600px;
     height: 350px;

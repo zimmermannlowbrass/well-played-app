@@ -75,6 +75,7 @@ function AddNewPlayground({ onAddPlayground }) {
             :
             <div>
                 <p>What playground would you like to add?</p>
+                <br/>
             <div className="addPlaygroundContainer">
                 <form className="addPlaygroundForm" onSubmit={formik.handleSubmit}>
                     <p>Name</p>
@@ -98,20 +99,26 @@ function AddNewPlayground({ onAddPlayground }) {
                     Does your playground:
                     <br />
                     have a bathroom? -
-                    <input
-                    type="radio"
-                    name="has_restroom"
-                    onChange={formik.handleChange}
-                    value='Yes'
-                    />
-                    Yes
-                    <input
-                    type="radio"
-                    name="has_restroom"
-                    onChange={formik.handleChange}
-                    value='No'
-                    />
-                    No
+                    <label>
+                        <input
+                        className="checkbox-wrapper-18"
+                        type="radio"
+                        name="has_restroom"
+                        onChange={formik.handleChange}
+                        value='Yes'
+                        />
+                        Yes
+                    </label>
+                    <label>
+                        <input
+                        className="checkbox-wrapper-18"
+                        type="radio"
+                        name="has_restroom"
+                        onChange={formik.handleChange}
+                        value='No'
+                        />
+                        No
+                    </label>
                     <br />
                     have a water feature? -
                     <input

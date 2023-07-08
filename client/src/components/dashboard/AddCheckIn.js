@@ -65,7 +65,7 @@ function AddCheckIn({ user, playgrounds, onAddCheckIn }){
         />
         <p style={{ color: "red" }}> {formik.errors.comment}</p>
         <p>Rating:</p>
-        <h2 style={{color: 'violet'}}>{stars}</h2>
+        <h2 style={{color: 'purple'}}>{stars}</h2>
         1 | 2 | 3 | 4 | 5
         <br />
         <input

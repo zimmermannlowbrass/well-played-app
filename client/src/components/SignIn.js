@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import Dashboard from "./dashboard/Dashboard";
 
 function SignIn({ onLogin, user, onSignOut }){
@@ -38,13 +37,16 @@ function SignIn({ onLogin, user, onSignOut }){
   
   if (user) {
     return(
-      <Dashboard user = {user} onSignOut = {onSignOut}/>
+      <Dashboard user = {user} onSignOut = {onSignOut}/>,
+      history.push("/dashboard")
     )
   }
 
   return(
       <div>
-          <h1 className="textBox">Welcome to WellPlayed!</h1>
+          <h1 className="textBox" id="title">
+              <span>Welcome to WellPlayed!</span>
+          </h1>
           <h3 className="textBox">Manhattan's premire playground social network</h3>
           <form onSubmit={formik.handleSubmit}>
               <label className="textBox" htmlFor="Email">Email</label>

@@ -54,9 +54,13 @@ function Dashboard({ user, onSignOut }) {
 
         return (
             <div>
-                <h1 className="textBox">Welcome to WellPlayed!</h1>
+                <h1 className="textBox" id="title">
+                    <span>Welcome to WellPlayed!</span>
+                </h1>
                 <h3 className="textBox">Manhattan's premiere playground social network</h3>
-                <h1 className="textBox">Welcome {user.name}!</h1>
+                <h1 className="textBox" id="welcomeMessage">
+                    <span>Welcome {user.name}!</span>
+                </h1>
                 <NavBar />
                 <Switch>
                     <Route exact path="/dashboard">

@@ -32,6 +32,7 @@ function History({ user_checkins, visited_playgrounds, onDeleteCheckIn }){
     return(
         <div>
             <p>Here are all of your past checkins!</p>
+            <br />
             {checkins.length > 0 ? checkins : <h1>You have no checkins!</h1>}
         </div>
     )
