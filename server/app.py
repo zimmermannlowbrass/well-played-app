@@ -66,32 +66,13 @@ class Login(Resource):
 
         return {'error': 'Unauthorized Email. Double check and try again!'}, 401
 
-        if not user:
-            return {"Message" : "User cannot be found"}, 401
-        session['user_id'] = user.id
-        user_dict =  {
-                "id": user.id,
-                "name": user.name,
-                "age": user.age,
-                "email": user.email,
-                "password": user.password,
-                "rank": user.rank
-            }
-        response = make_response(
-                jsonify(user_dict),
-                200
-            )
-        return response
-
 class Logout(Resource):
-
     def delete(self):
         session['user_id'] = None
         return {'message': '204: No Content'}, 204
 
 
 class CheckSession(Resource):
-
     def get(self):
         user = User.query.filter(User.id == session.get('user_id')).first()
         if user:
@@ -350,21 +331,5 @@ api.add_resource(CheckIns, '/checkins')
 api.add_resource(CheckInByID, '/checkins/<int:id>')
 
 
-
-
-# @app.route('/playgrounds/<int:id>')
-# def playground_by_id(id):
-#     playground = Playground.query.filter(Playground.id == id).first()
-#     response = make_response(jsonify(playground.to_dict()), 200)
-#     response.headers['Content-Type'] = 'application/json'
-#     return response
-
-
-
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
-
- 
-
-# For some reason I get an AttributeError of 'Playground' object has no attribute when I use to_dict()
-# 

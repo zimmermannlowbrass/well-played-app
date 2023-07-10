@@ -12,7 +12,7 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serialize_rules = ('-checkins.user', '-_password_hash')
+    serialize_rules = ('-checkins.user', '-_password_hash',)
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
@@ -79,7 +79,7 @@ class User(db.Model, SerializerMixin):
 class Playground(db.Model, SerializerMixin):
     __tablename__ = 'playgrounds'
 
-    serialize_rules = ('-checkins.playground')
+    serialize_rules = ('-checkins.playground',)
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
@@ -114,7 +114,7 @@ class Playground(db.Model, SerializerMixin):
 class CheckIn(db.Model, SerializerMixin):
     __tablename__ = 'checkins'
 
-    serialize_rules = ('-user.checkins', '-playground.checkins')
+    serialize_rules = ('-user.checkins', '-playground.checkins',)
 
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer)
