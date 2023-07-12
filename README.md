@@ -1,4 +1,6 @@
-# WellPLayed - Manhattan's Premire Playground Social Network
+# WellPlayed - Manhattan's Premire Playground Social Network
+
+![demo](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzAwd2d2NzI3N3o4anB1dTNuZ3UzMTZqYXpoOGJyZjdkcnc4bGZsbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/EqJw7OhOKePMby1oVG/giphy.gif)
 
 ## Overview
 

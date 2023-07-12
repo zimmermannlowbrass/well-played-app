@@ -37,8 +37,8 @@ function SignIn({ onLogin, user, onSignOut }){
   
   if (user) {
     return(
-      <Dashboard user = {user} onSignOut = {onSignOut}/>,
-      history.push("/dashboard")
+      <Dashboard user = {user} onSignOut = {onSignOut}/>
+      // history.push('/dashboard', user)
     )
   }
 

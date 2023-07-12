@@ -10,6 +10,9 @@ from flask_restful import Resource
 from config import app, db, api
 from models import User, Playground, CheckIn
 
+# class Playgrounds(Resource)
+# 
+# 
 
 class Home(Resource):
     def get(self):
@@ -319,6 +322,23 @@ class UserByID(Resource):
             200
         )
         return response
+    
+
+class Playground_Checkins(Resource):
+
+    def get(self, n):
+        playgrounds = Playground.query.all()
+        playgrounds_verified = []
+        for playground in playgrounds:
+            if len(playground.checkins) >= n:
+                playgrounds_verified.append(playground)
+        
+        playgrounds_serialized = [playground.to_dict() for playground in playgrounds_verified]
+
+        return make_response(playgrounds_serialized, 200)
+
+api.add_resource(Playground_Checkins, '/playground_checkins/<int:n>')
+
 
 api.add_resource(Home, '/')
 api.add_resource(Login, '/logins')
