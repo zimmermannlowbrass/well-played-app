@@ -19,4 +19,4 @@ def scraper(playground):
         print(pic['src'])
 
 
-print(scraper("abc-playground"))
+# print(scraper("abc-playground"))
