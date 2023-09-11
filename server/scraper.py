@@ -22,7 +22,7 @@ def scraper(playground):
 print(scraper("abc-playground"))
 
 
-def scraper2():
+def playground_name_scraper():
     site = f"https://www.nycgovparks.org/facilities/playgrounds?boro=manhattan"
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"}
     req = Request(site,headers=headers)
@@ -40,4 +40,4 @@ def scraper2():
             print(playground_name.contents)
     
 
-scraper2()
+playground_name_scraper()
